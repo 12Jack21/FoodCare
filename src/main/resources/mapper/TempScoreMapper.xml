@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="dao.TempScoreDAO">
+    <resultMap id="AthTempScore" type="po.TempScore">
+        <id property="id" column="t_id"/>
+        <result property="score" column="score"/>
+        <result property="isValid" column="isValid"/>
+        <association property="judge" javaType="po.Judge">
+            <id property="id" column="j_id"/>
+            <association property="referee" javaType="po.Referee">
+                <id property="id" column="r_id"/>
+                <result property="name" column="name"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <resultMap id="NewestTempOfAth" type="po.TempScore">
+        <id property="id" column="t_id"/>
+        <result property="score" column="score"/>
+        <result property="isValid" column="isValid"/>
+        <association property="athlete" javaType="po.Athlete">
+            <id property="id" column="athid"/>
+            <result property="name" column="name"/>
+            <result property="no" column="no"/>
+        </association>
+    </resultMap>
+
+<!--    <select id="getAthTempScores" resultMap="AthTempSocre" parameterType="int">-->
+<!--        SELECT r.*,t.id tempScore_id,t.score-->
+<!--        FROM tempscore t-->
+<!--        LEFT JOIN referee r-->
+<!--        ON t.ref_id=r.id-->
+<!--        WHERE t.ath_id = #{param1}-->
+<!--        AND t.comp_id = #{param2}-->
+<!--    </select>-->
+
+    <select id="getAthScoreListNormal" parameterType="int" resultMap="NewestTempOfAth">
+        SELECT a.id athid, a.`name`,a.no,t.id t_id,t.score,t.isValid
+        FROM tempscore t
+        LEFT JOIN athlete a
+        ON t.ath_id=a.id
+        WHERE t.id=
+              (SELECT MAX(id) max_tid
+               FROM tempscore
+               WHERE ath_id = #{param2}
+                 AND judge_id =#{param1}
+              )
+    </select>
+
+    <select id="getNewestScoreOfRef" parameterType="int" resultType="po.TempScore">
+        SELECT id,score,isValid
+        FROM tempscore
+        WHERE id=
+              (SELECT MAX(t.id)
+               FROM tempscore t
+               LEFT JOIN judge j
+                ON t.judge_id=j.id
+               WHERE j.comp_id=#{param1}
+                AND j.ref_id=#{param2}
+                AND t.ath_id = #{param3}
+              )
+    </select>
+
+    <select id="getSingleAthTemp" parameterType="int" resultType="po.TempScore">
+        SELECT id,score,isValid
+        FROM tempscore
+        WHERE ath_id= #{param2}
+        AND judge_id= #{param1}
+    </select>
+
+    <select id="getRefLogOfSingleAth" parameterType="int" resultType="po.TempScore">
+        SELECT t.score,t.isValid
+        FROM tempscore t
+        LEFT JOIN judge j
+        ON t.judge_id=j.id
+        WHERE j.comp_id=#{param1}
+          AND j.ref_id=#{param2}
+          AND t.ath_id =#{param3}
+    </select>
+
+    <select id="getAthTempScores" resultMap="AthTempScore" parameterType="int">
+        SELECT r.id r_id,r.name,j.id j_id,t.id t_id,t.score,t.valid
+        FROM tempscore t
+        LEFT JOIN judge j
+        ON t.judge_id = j.id
+        LEFT JOIN referee r
+        ON j.ref_id = r.id
+        WHERE j.comp_id = #{param2}
+        AND t.ath_id = #{param1}
+    </select>
+
+    <select id="getAthValidScores" resultMap="AthTempScore" parameterType="int">
+        SELECT r.id r_id,r.name,j.id j_id,t.id t_id,t.score,t.valid
+        FROM tempscore t
+        LEFT JOIN judge j
+        ON t.judge_id = j.id
+        LEFT JOIN referee r
+        ON j.ref_id = r.id
+        WHERE j.comp_id = #{param2}
+        AND t.ath_id = #{param1}
+        AND t.isValid = 1
+    </select>
+
+    <select id="getAthResultScore" resultType="double" parameterType="int">
+        SELECT AVG (t.score)
+        FROM tempscore t
+        LEFT JOIN judge j
+        ON t.judge_id = j.id
+        LEFT JOIN referee r
+        ON j.ref_id = r.id
+        WHERE j.comp_id = #{param2}
+        AND t.ath_id = #{param1}
+        AND t.isValid = 1
+    </select>
+
+    <insert id="addTempScore" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="po.TempScore">
+        INSERT INTO tempscore (judge_id,ath_id,score)
+        VALUES (#{judge.id},#{athid},#{score})
+    </insert>
+
+    <delete id="deleteTempScore">
+        DELETE FROM tempscore
+        WHERE id = #{tempScoreid}
+    </delete>
+
+    <update id="updateTempScore" parameterType="int">
+        UPDATE tempscore
+        SET isValid = #{param2}
+        WHERE id = #{param1}
+    </update>
+</mapper>

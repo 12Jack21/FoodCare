@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.FoodDAO">
+
+    <select id="getById" parameterType="int" resultType="po.Food">
+        SELECT * FROM food WHERE id=#{id}
+    </select>
+
+    <select id="getAllFood" resultType="po.Food">
+        SELECT * FROM  food
+    </select>
+
+    <select id="getByGroup" resultType="po.Food">
+        SELECT * FROM food WHERE group=#{group}
+    </select>
+
+    <select id="getFoodByLabelId" parameterType="int">
+        SELECT
+    </select>
+
+    <insert id="insert" parameterType="po.Food">
+        INSERT INTO food(group,name,picture,category,type,heat,tanshui,
+        fat,protein,cellulose,vitaminA,vitaminC,vitaminE,carotene,liuan,hehuang,yansuan,cholesterol,
+        mei,gai,tie,xin,tong,meng,jia,lin,na,xi,measure,evaluate,ingredient,excipient,practice)
+        VALUES (#{group},#{name},#{picture},#{category},#{type},#{heat},#{tanshui},
+        #{fat},#{protein},#{cellulose},#{vitaminA},#{vitaminC},#{vitaminE},#{carotene},#{liuan},#{hehuang},#{yansuan},#{cholesterol},
+        #{mei},#{gai},#{tie},#{xin},#{tong},#{meng},#{jia},#{lin},#{na},#{xi},#{measure},#{evaluate},#{ingredient},#{excipient},#{practice})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM food WHERE id=#{id}
+    </delete>
+
+
+</mapper>

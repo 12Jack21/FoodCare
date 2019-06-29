@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.RefereeDAO">
+    <resultMap id="RefereeInf" type="po.Referee">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="refID" column="refID"/>
+        <result property="phone" column="phone"/>
+        <result property="user" column="user"/>
+        <association property="team" javaType="po.Team">
+            <id property="id" column="teamid"/>
+            <result property="name" column="t_name"/>
+        </association>
+    </resultMap>
+
+    <select id="getUser" resultType="string" parameterType="string">
+        SELECT user FROM referee WHERE name = #{name}
+    </select>
+
+    <select id="getAllReferees" resultMap="RefereeInf">
+        SELECT r.*,t.name t_name FROM referee r LEFT JOIN team t ON r.teamid = t.id
+    </select>
+
+    <select id="getTeamReferees" resultType="po.Referee" parameterType="int">
+        SELECT * FROM referee WHERE teamid = #{teamid}
+    </select>
+
+    <select id="getReferee" parameterType="int" resultType="po.Referee">
+        SELECT * FROM referee WHERE id = #{refid}
+    </select>
+
+    <select id="getRefIdByUser" parameterType="string" resultType="integer">
+        SELECT id FROM referee WHERE name=#{param1} AND user=#{param2}
+    </select>
+    <select id="getUnGroupRef" parameterType="int" resultMap="RefereeInf">
+        SELECT r.id,r.`name` ,r.teamid,t.`name` t_name
+        FROM referee r
+        LEFT JOIN team t
+        ON r.teamid=t.id
+        WHERE r.id
+        NOT IN
+        (
+            SELECT ref_id
+            FROM judge
+            WHERE comp_id = #{compid}
+        )
+    </select>
+<!--    <select id="getCompReferees" resultType="po.Referee" parameterType="int">-->
+<!--        SELECT * FROM referee WHERE compid = #{teamid}-->
+<!--    </select>-->
+
+    <insert id="addReferee" parameterType="po.Referee" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO referee (name,refID,phone,teamid)
+        VALUES (#{name},#{refID},#{phone},#{team.id})
+    </insert>
+
+    <delete id="deleteReferee" parameterType="int">
+        DELETE FROM referee WHERE id = #{refid}
+    </delete>
+
+    <update id="updateReferee" parameterType="po.Referee">
+        UPDATE referee
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="refID!=null">
+                refID = #{refID},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateRefUser">
+        UPDATE referee
+        SET user = #{param2}
+        WHERE id = #{param1}
+    </update>
+
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.TeamDAO">
+
+    <select id="getPassWord" parameterType="string" resultType="string">
+        SELECT password FROM team WHERE user = #{user}
+    </select>
+
+    <select id="getAllTeams" resultType="po.Team">
+        SELECT * FROM team
+    </select>
+
+    <select id="getTeam" resultType="po.Team" parameterType="int">
+        SELECT * FROM team WHERE id = #{teamid}
+    </select>
+
+    <select id="getUnSignTeams" resultType="po.Team">
+        SELECT * FROM team WHERE isSign = 0
+    </select>
+
+    <select id="getTeamIdByUser" resultType="integer" parameterType="string">
+        SELECT id FROM team WHERE user=#{param1} AND password=#{param2}
+    </select>
+
+    <select id="getHostTeam" resultType="po.Team">
+        SELECT * FROM team WHERE isHost = 1
+    </select>
+
+    <insert id="addTeam" parameterType="po.Team">
+        INSERT INTO team (name,user,password) VALUES (#{name},#{user},#{password})
+    </insert>
+
+    <delete id="deleteTeam" parameterType="int">
+        DELETE FROM team WHERE id = #{teamid}
+    </delete>
+
+    <update id="updateTeam" parameterType="po.Team">
+        UPDATE team
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="user!=null">
+                user = #{user},
+            </if>
+            <if test="password!=null">
+                password = #{password},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateTeamSign" parameterType="int">
+        UPDATE team SET isSign = 1 WHERE id = #{teamid}
+    </update>
+
+    <update id="updateTeamHost" parameterType="int">
+        UPDATE team SET isHost = 1 WHERE id = #{teamid}
+    </update>
+
+    <update id="updateTeamAttach">
+        UPDATE team
+        SET attachment = #{param2,javaType=byte[],jdbcType=BLOB,typeHandler=org.apache.ibatis.type.BlobTypeHandler}
+        WHERE id = #{param1}
+    </update>
+
+</mapper>

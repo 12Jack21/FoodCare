@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.CoachDAO">
+    <resultMap id="CoachInf" type="po.Coach">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="phone" column="phone"/>
+        <result property="coachID" column="coachID"/>
+        <association property="team" javaType="po.Team">
+            <id property="id" column="id"/>
+            <result property="name" column="t_name"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllCoaches" resultMap="CoachInf">
+        SELECT c.id,c.name,c.sex,c.phone,c.coachID,c.teamid,t.name t_name FROM coach c LEFT JOIN team t ON c.teamid=t.id
+    </select>
+
+    <select id="getTeamCoaches" resultType="po.Coach" parameterType="int">
+        SELECT c.id,c.name,c.sex,c.phone,c.coachID FROM coach c WHERE c.teamid = #{teamid}
+    </select>
+
+    <insert id="addCoach" parameterType="po.Coach" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO coach (name,sex,phone,coachID,teamid) VALUES (#{name},#{sex},#{phone},#{coachID},#{team.id})
+    </insert>
+
+    <delete id="deleteCoach" parameterType="int">
+        DELETE FROM coach WHERE id=#{coachid}
+    </delete>
+
+    <update id="updateCoach">
+        UPDATE coach
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="sex!=-1">
+                sex = #{sex},
+            </if>
+            <if test="coachID!=null">
+                coachID = #{coachID},
+            </if>
+            <if test="phone">
+                phone = #{phone}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

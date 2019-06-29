@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.FoodLabelDAO">
+
+    <resultMap id="FoodLabelInf" type="po.FoodLabel">
+        <id property="id" column="id"/>
+        <association property="label" javaType="po.Label">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+<!--    <resultMap id="FoodInf" type="po.FoodLabel">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <association property="food" javaType="po.Food">-->
+<!--            <id property="id" column="id"/>/-->
+<!--            <result property="name" column="name"/>-->
+<!--            <result property="group" column="group"/>-->
+<!--        </association>-->
+
+<!--    </resultMap>-->
+
+    <select id="getByFoodId" parameterType="int" resultMap="FoodLabelInf">
+        SELECT * FROM foodlabel WHERE id=#{food_id}
+    </select>
+
+    <select id="getAllFoodLabelName" resultType="string">
+        SELECT name from label
+    </select>
+
+    <insert id="insert" parameterType="po.FoodLabel">
+        INSERT INTO foodlabel(label_id,food_id) VALUES (#{label.id},#{food.id})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM foodlabel
+        WHERE id=#{id}
+    </delete>
+
+    <update id="update" parameterType="po.FoodLabel">
+        UPDATE foodlabel
+        SET label_id=#{label.id}
+        WHERE id={food.id}
+    </update>
+
+</mapper>

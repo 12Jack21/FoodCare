@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.DietDetailDAO">
+
+    <resultMap id="DietDetailInf" type="po.DietDetail">
+        <id column="id" property="id"/>
+        <association property="food" javaType="po.Food">
+            <id column="id" property="id"/>
+        </association>
+    </resultMap>
+
+
+    <select id="getByDietId" parameterType="int" resultType="po.DietDetail">
+        SELECT * from dietdetail where diet = #{diet_id}
+    </select>
+
+    <insert id="insert" parameterType="po.DietDetail">
+        INSERT INTO dietdetail(quantity,diet,food_id) VALUES (#{quantity},#{diet.id},#{food.id})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM dietdetail
+        WHERE id={id}
+    </delete>
+
+    <update id="update" parameterType="int">
+        UPDATE dietdetail
+        SET  quantity=#{param2}
+        WHERE id=#{param1}
+    </update>
+
+</mapper>

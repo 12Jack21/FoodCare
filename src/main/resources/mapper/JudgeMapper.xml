@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.JudgeDAO">
+
+<!--    加上id 属性以区分 裁判类型相同的给分记录-->
+    <!--带上比赛以及比赛相关信息-->
+    <resultMap id="CompJudges" type="po.Judge">
+        <id property="id" column="j_id"/>
+        <result property="groupno" column="groupno"/>
+        <result property="reftype" column="reftype"/>
+        <association property="competition" javaType="po.Competition">
+            <id property="id" column="id"/>
+            <result property="project" column="project"/>
+            <result property="type" column="type"/>
+            <result property="sexgroup" column="sexgroup"/>
+            <result property="agegroup" column="agegroup"/>
+            <result property="place" column="place"/>
+            <result property="date" column="date"/>
+            <result property="isEnd" column="isEnd"/>
+        </association>
+    </resultMap>
+
+    <!--带上裁判以及裁判所属队伍-->
+    <resultMap id="RefJudges" type="po.Judge">
+        <id property="id" column="id"/>
+        <result property="reftype" column="reftype"/>
+        <result property="groupno" column="groupno"/>
+        <association property="referee" javaType="po.Referee">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="refID" column="refID"/>
+            <result property="phone" column="phone"/>
+            <association property="team" javaType="po.Team">
+                <id property="id" column="id"/>
+                <result property="name" column="teamName"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="getJudgesByRef" resultMap="CompJudges" parameterType="int">
+        SELECT c.*,j.groupno,j.reftype
+        FROM judge j 
+        LEFT JOIN competition c
+        ON j.comp_id=c.id
+        WHERE j.ref_id= #{param1}
+        AND j.reftype= #{param2}
+    </select>
+
+    <select id="getJudgesByComp" resultMap="RefJudges" parameterType="int">
+        SELECT r.*,j.groupno,j.reftype,t.name teamName
+        FROM judge j 
+        LEFT JOIN referee r
+        ON j.ref_id=r.id
+        LEFT JOIN team t
+        ON r.teamid = t.id
+        WHERE j.comp_id=#{compid}
+        ORDER BY j.groupno ASC,j.reftype DESC
+    </select>
+
+    <select id="getJudge" resultMap="CompJudges" parameterType="int">
+        SELECT id j_id,groupno,comp_id id
+        FROM judge
+        WHERE id=#{jud_id}
+    </select>
+
+    <select id="getJudgeByCompGroup" parameterType="int" resultType="po.Referee">
+        SELECT r.id,r.name
+        FROM judge j
+        LEFT JOIN referee r
+        ON j.ref_id=r.id
+        WHERE j.comp_id=#{param1}
+        AND j.groupno=#{param2}
+    </select>
+
+    <select id="getJudgeByRefComp" parameterType="int" resultMap="CompJudges">
+        SELECT c.* ,j.id j_id,j.groupno,j.reftype
+        FROM judge j
+        LEFT JOIN competition c
+        ON j.comp_id=c.id
+        WHERE ref_id=#{param2}
+        AND c.id=#{param1}
+    </select>
+
+    <select id="getReftype" resultType="int" parameterType="int">
+        SELECT j.reftype FROM judge WHERE ref_id=#{param1} AND comp_id=#{param2}
+    </select>
+
+    <select id="getMaxRefGroupNoOfComp" parameterType="int" resultType="integer">
+        SELECT MAX(groupno)
+        FROM judge j
+        WHERE j.comp_id = #{compid}
+    </select>
+
+    <insert id="addJudge" parameterType="po.Judge" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO judge (comp_id,ref_id,groupno,reftype)
+        VALUES (#{competition.id},#{referee.id},#{groupno},#{reftype})
+    </insert>
+
+    <delete id="deleteJudge">
+        DELETE FROM judge
+        WHERE id = #{judgeid}
+    </delete>
+
+    <update id="updateJudge" parameterType="po.Judge">
+        UPDATE judge
+        <set>
+            <if test="group!=-1">
+                groupno = #{groupno},
+            </if>
+            <if test="reftype!=-1">
+                reftype = #{reftype},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+<!--    <update id="updateJudge">-->
+<!--        UPDATE judge-->
+<!--        SET reftype = #{param3}-->
+<!--        WHERE comp_id = #{param1}-->
+<!--        AND ref_id = #{param2}-->
+<!--    </update>-->
+
+</mapper>

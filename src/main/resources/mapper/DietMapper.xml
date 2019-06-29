@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.DietDAO">
+
+    <select id="getByAccount" parameterType="int" resultType="po.Diet">
+        SELECT * FROM diet WHERE account = #{user_id}
+    </select>
+
+    <select id="getByAccGroup" resultType="po.Diet">
+        SELECT * FROM diet WHERE account=#{param1} AND group=#{param2}
+    </select>
+
+    <select id="getById" parameterType="int" resultType="po.Diet">
+        SELECT * FROM diet WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="po.Diet">
+        INSERT INTO diet(group,date,account) VALUES (#{group},#{date},#{account.id})
+
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM diet
+        WHERE id=#{id}
+    </delete>
+
+<!--    <update id="update" parameterType="po.Diet">-->
+<!--        update diet-->
+<!--        SET -->
+<!--    </update>-->
+<!--    -->
+</mapper>
