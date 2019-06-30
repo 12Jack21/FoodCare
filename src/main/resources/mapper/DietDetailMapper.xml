@@ -6,19 +6,25 @@
 <mapper namespace="dao.DietDetailDAO">
 
     <resultMap id="DietDetailInf" type="po.DietDetail">
-        <id column="id" property="id"/>
+        <id property="food.id" column="id"/>
+        <result property="quantity" column="quantity"/>
         <association property="food" javaType="po.Food">
             <id column="id" property="id"/>
+            <result property="name" column="name"/>
         </association>
     </resultMap>
 
 
-    <select id="getByDietId" parameterType="int" resultType="po.DietDetail">
-        SELECT * from dietdetail where diet = #{diet_id}
+    <select id="getByDietId" parameterType="int" resultMap="DietDetailInf">
+        SELECT dd.quantity,f.*
+        FROM dietdetail dd
+        LEFT JOIN food f
+        ON dd.food_id=f.id
+        WHERE dd.diet_id=#{diet_id}
     </select>
 
     <insert id="insert" parameterType="po.DietDetail">
-        INSERT INTO dietdetail(quantity,diet,food_id) VALUES (#{quantity},#{diet.id},#{food.id})
+        INSERT INTO dietdetail(quantity,diet_id,food_id) VALUES (#{quantity},#{diet.id},#{food.id})
     </insert>
 
     <delete id="delete" parameterType="int">

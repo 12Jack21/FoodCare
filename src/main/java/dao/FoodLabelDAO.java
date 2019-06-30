@@ -9,17 +9,15 @@ import java.util.List;
 @Repository
 public interface FoodLabelDAO {
 
-    List<FoodLabel> getByFoodId(int food_id);
+    List<FoodLabel> getLabelByFoodId(int food_id);
 
-    List<String> getAllFoodLabelName(); //所有食物标签名
+    List<FoodLabel> getFoodByLabelId(int label_id);
 
-    List<FoodLabel> getByLabelId(int label_id);
+    Boolean insert(int label_id,int food_id);
 
-    Boolean insert(FoodLabel foodLabel);
+    Boolean delete(int label_id,int food_id);
 
-    Boolean delete(int id);
-
-    Boolean update(FoodLabel foodLabel);
+    //Boolean update(FoodLabel foodLabel);
 
 
 }

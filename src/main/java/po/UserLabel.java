@@ -2,22 +2,14 @@ package po;
 
 public class UserLabel {
 
-    private int id;
     //食物标签名（辣，高甜，高脂肪），也可以是口味(甜)，初始化时输入
     private Label label;
 
     //标签相对于一个用户的权重
     private Double weight;
+
     //相对的用户
     private Account account;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Label getLabel() {
         return label;
@@ -45,4 +37,5 @@ public class UserLabel {
 
     public UserLabel() {
     }
+
 }

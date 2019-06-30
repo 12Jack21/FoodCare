@@ -5,45 +5,50 @@
 
 <mapper namespace="dao.FoodLabelDAO">
 
-    <resultMap id="FoodLabelInf" type="po.FoodLabel">
-        <id property="id" column="id"/>
+    <resultMap id="foodInf" type="po.FoodLabel">
+        <id property="food.id" column="id"/>
+        <association property="label" javaType="po.Food">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="labelInf" type="po.FoodLabel">
+        <id property="label.id" column="id"/>
         <association property="label" javaType="po.Label">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
         </association>
     </resultMap>
 
-<!--    <resultMap id="FoodInf" type="po.FoodLabel">-->
-<!--        <id property="id" column="id"/>-->
-<!--        <association property="food" javaType="po.Food">-->
-<!--            <id property="id" column="id"/>/-->
-<!--            <result property="name" column="name"/>-->
-<!--            <result property="group" column="group"/>-->
-<!--        </association>-->
-
-<!--    </resultMap>-->
-
-    <select id="getByFoodId" parameterType="int" resultMap="FoodLabelInf">
-        SELECT * FROM foodlabel WHERE id=#{food_id}
+    <select id="getLabelByFoodId" parameterType="int" resultMap="labelInf">
+        SELECT l.id,l.name FROM
+        foodlabel fl LEFT JOIN
+        label l ON fl.label_id=l.id
+        WHERE fl.food_id=#{food_id}
     </select>
 
-    <select id="getAllFoodLabelName" resultType="string">
-        SELECT name from label
+    <select id="getFoodByLabelId" parameterType="int" resultMap="labelInf">
+        SELECT f.* FROM
+        foodlabel fl LEFT JOIN
+        food f ON fl.food_id=f.id
+        WHERE fl.label_id=#{label_id}
     </select>
 
     <insert id="insert" parameterType="po.FoodLabel">
-        INSERT INTO foodlabel(label_id,food_id) VALUES (#{label.id},#{food.id})
+        INSERT INTO foodlabel(label_id,food_id) VALUES (#{param1},#{param2})
     </insert>
 
     <delete id="delete" parameterType="int">
         DELETE FROM foodlabel
-        WHERE id=#{id}
+        WHERE label_id=#{param1}
+        AND food_id=#{param2}
     </delete>
 
-    <update id="update" parameterType="po.FoodLabel">
-        UPDATE foodlabel
-        SET label_id=#{label.id}
-        WHERE id={food.id}
-    </update>
+<!--    <update id="update" parameterType="po.FoodLabel">-->
+<!--        UPDATE foodlabel-->
+<!--        SET label_id=#{label.id}-->
+<!--        WHERE id={food.id}-->
+<!--    </update>-->
 
 </mapper>

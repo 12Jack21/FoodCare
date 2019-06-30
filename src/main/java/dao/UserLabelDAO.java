@@ -8,11 +8,11 @@ import java.util.List;
 @Repository
 public interface UserLabelDAO {
 
-    List<UserLabel> getByAccountId(int account_id);
+    List<UserLabel> getLabelByAccountId(int account_id);
 
-    Boolean insert(UserLabel userLabel);
+    Boolean insert(int label_id,int account_id,Double weight);
 
-    Boolean delete(int id);
+    Boolean delete(int label_id,int account_id);
 
     Boolean update(UserLabel userLabel); //只 update 权重weight
 

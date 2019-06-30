@@ -2,21 +2,12 @@ package po;
 
 public class DietDetail {
 
-    private int id;
     private int quantity;
 
     private Diet diet;
     private Food food;
 
     public DietDetail() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getQuantity() {

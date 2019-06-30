@@ -5,8 +5,8 @@
 
 <mapper namespace="dao.UserLabelDAO">
 
-    <resultMap id="UserLabelInf" type="po.UserLabel">
-        <id property="id" column="id"/>
+    <resultMap id="labelInf" type="po.UserLabel">
+        <id property="label.id" column="id"/>
         <association property="label" javaType="po.Label">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
@@ -14,24 +14,29 @@
     </resultMap>
 
 
-    <select id="getByAccountId" parameterType="int" resultMap="UserLabelInf">
-        SELECT * FROM userlabel WHERE id=#{account_id}
+    <select id="getLabelByAccountId" parameterType="int" resultMap="labelInf">
+        SELECT l.* FROM
+        userlabel ul LEFT JOIN
+        label l ON ul.label_id=l.id
+        WHERE ul.account_id=1
     </select>
 
 
-    <insert id="insert" parameterType="po.UserLabel">
-        INSERT INTO userlabel(label_id,account) VALUES (#{label.id},#{account.id})
+    <insert id="insert" >
+        INSERT INTO userlabel(label_id,account_id,weight) VALUES (#{param1},#{param2},#{param3})
     </insert>
 
     <delete id="delete" parameterType="int">
         DELETE FROM userlabel
-        WHERE id=#{id}
+        WHERE label_id=#{param1}
+        AND account_id = #{param2}
     </delete>
 
     <update id="update" parameterType="po.UserLabel">
         UPDATE userlabel
         SET weight=#{weight}
-        WHERE id={id}
+        WHERE label_id=#{label.id}
+        AND account_id=#{account.id}
     </update>
 
 </mapper>
