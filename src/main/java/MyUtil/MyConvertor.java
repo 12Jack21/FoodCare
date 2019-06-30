@@ -1,57 +1,23 @@
 package MyUtil;
 
-import org.springframework.beans.BeanUtils;
-import vo.CompetitionVO;
-import vo.RefereeVO;
+import po.Account;
+import po.Food;
+import vo.AccountLog;
+import vo.FoodReg;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 public class MyConvertor {
 
-    public static RefereeVO convertRef(Referee referee){
-        RefereeVO rVO = new RefereeVO();
-        BeanUtils.copyProperties(referee,rVO);
+    //转换成识别图片后显示食物以及概率
+    public static FoodReg toFoodReg(Food food,Double probability){
 
-        rVO.setTeam(referee.getTeam().getName());
-
-        return rVO;
+        return new FoodReg(food, probability);
     }
 
-    public static CompetitionVO convertComp(Competition competition){
-        CompetitionVO c = new CompetitionVO();
-        c.setId(competition.getId());
-        c.setProject(competition.getProject());
-        if(competition.getDate() != null){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            c.setDate(sdf.format(competition.getDate()));
-        }
-        c.setPlace(competition.getPlace());
-
-        if(competition.getSexgroup() == 0)
-            c.setSexgroup("女子");
-        else
-            c.setSexgroup("男子");
-
-        int ageGroup = competition.getAgegroup();
-        if(ageGroup == 0)
-            c.setAgegroup("7-8岁");
-        else if (ageGroup == 1)
-            c.setAgegroup("9-10岁");
-        else
-            c.setAgegroup("11-12岁");
-
-        if(competition.getType() == 0)
-            c.setType("初赛");
-        else
-            c.setType("决赛");
-
-        if(competition.getIsEnd() == 0)
-            c.setIsEnd("否");
-        else
-            c.setIsEnd("是");
-
-        return c;
+    //转换成带 登陆判断 的用户对象
+    public static AccountLog toAccountLog(Account account,boolean canLogin){
+        return new AccountLog(account,canLogin);
     }
 
     //将数字转换成 年龄组别的字符串

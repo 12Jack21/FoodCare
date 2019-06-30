@@ -29,13 +29,15 @@
 
     <delete id="delete" parameterType="int">
         DELETE FROM dietdetail
-        WHERE id={id}
+        WHERE diet_id=#{param1}
+        AND food_id=#{param2}
     </delete>
 
     <update id="update" parameterType="int">
         UPDATE dietdetail
-        SET  quantity=#{param2}
-        WHERE id=#{param1}
+        SET  quantity=#{param3}
+        WHERE food_id=#{param2}
+        AND diet_id=#{param1}
     </update>
 
 </mapper>

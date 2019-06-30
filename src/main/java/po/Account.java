@@ -17,6 +17,10 @@ public class Account {
     public Account() {
     }
 
+    public Account(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

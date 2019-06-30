@@ -18,6 +18,16 @@ public class Diet {
     public Diet() {
     }
 
+    public Diet(int id) {
+        this.id = id;
+    }
+
+    public Diet(int group, Date date, Account account) {
+        this.group = group;
+        this.date = date;
+        this.account = account;
+    }
+
     public int getId() {
         return id;
     }

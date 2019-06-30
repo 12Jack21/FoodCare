@@ -13,8 +13,8 @@ public interface DietDetailDAO {
 
     Boolean insert(DietDetail dietDetail);
 
-    Boolean delete(int id);
+    Boolean delete(int diet_id,int food_id);
 
-    Boolean update(int id,int quantity);
+    Boolean update(int diet_id,int food_id,int quantity);
 
 }

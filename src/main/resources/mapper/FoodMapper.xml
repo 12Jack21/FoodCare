@@ -9,8 +9,12 @@
         SELECT * FROM food WHERE id=#{id}
     </select>
 
-    <select id="getByName" parameterType="int" resultType="po.Food">
+    <select id="getBySpecifiedName" parameterType="int" resultType="po.Food">
         SELECT * FROM food WHERE name=#{name}
+    </select>
+
+    <select id="getByName" parameterType="int" resultType="po.Food">
+        SELECT * FROM food WHERE name LIKE #{name}
     </select>
 
     <select id="getAllFood" resultType="po.Food">
@@ -21,6 +25,13 @@
         SELECT * FROM food WHERE group=#{group}
     </select>
 
+    <select id="getByType" resultType="po.Food">
+        SELECT * FROM food WHERE group = 0 AND type LIKE #{type}
+    </select>
+
+    <select id="getByCategory" resultType="po.Food">
+        SELECT * FROM food WHERE group=1 AND type LIKE #{category}
+    </select>
 
     <insert id="insert" parameterType="po.Food">
         INSERT INTO food(group,name,picture,category,type,heat,tanshui,

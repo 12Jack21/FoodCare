@@ -3,15 +3,18 @@ package dao;
 import org.springframework.stereotype.Repository;
 import po.Diet;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface DietDAO {
 
-    List<Diet> getByAccount(int user_id);
+    List<Diet> getByAccount(int account_id);
+
+    List<Diet> getByAccDate(int account_id, Date date);
 
     //还根据diet的组别（早餐）
-    List<Diet> getByAccGroup(int user_id,int group);
+    Diet getByAccGroup(int account_id,int group);
 
     Diet getById(int id);
 

@@ -3,6 +3,8 @@ package service;
 import po.Account;
 import po.Food;
 import po.FoodLabel;
+import po.Label;
+import vo.FoodReg;
 
 import java.util.List;
 
@@ -11,6 +13,13 @@ public interface FoodService {
     Food getFoodById(int id);
 
     List<Food> getAllFood();
+
+    //按照常用的级别来得到排序后的食物列表
+    List<Food> getCommonFood();
+
+    //得到所有食物的标签
+    List<Label> getAllLabel();
+
     //根据标签查找食物
     List<Food> getFoodByLabel(int label_id);
 
@@ -38,7 +47,7 @@ public interface FoodService {
     boolean updateByName(String foodName);
 
     //根据一张图片识别食物
-    List<Food> recognizePicture(Byte[] picture);
+    List<FoodReg> recognizePicture(Byte[] picture);
 
     //提供饮食建议（根据用户个人信息和根据图片识别出的食品）
     String advice(Account account, String foodName);

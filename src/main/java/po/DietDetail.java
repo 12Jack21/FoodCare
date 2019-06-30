@@ -10,6 +10,12 @@ public class DietDetail {
     public DietDetail() {
     }
 
+    public DietDetail(int quantity, Diet diet, Food food) {
+        this.quantity = quantity;
+        this.diet = diet;
+        this.food = food;
+    }
+
     public int getQuantity() {
         return quantity;
     }

@@ -16,4 +16,10 @@ public class MyConstrict {
         return p.matcher(phone).matches();
     }
 
+    //TODO 邮箱格式限制
+    public static boolean isMailLegal(String mail){
+        return false;
+    }
+
+
 }

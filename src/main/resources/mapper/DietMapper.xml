@@ -6,7 +6,11 @@
 <mapper namespace="dao.DietDAO">
 
     <select id="getByAccount" parameterType="int" resultType="po.Diet">
-        SELECT * FROM diet WHERE account = #{user_id}
+        SELECT * FROM diet WHERE account = #{account_id}
+    </select>
+
+    <select id="getByAccDate" resultType="po.Diet">
+        SELECT * FROM diet WHERE account = #{param1} AND date = #{param2}
     </select>
 
     <select id="getByAccGroup" resultType="po.Diet">
@@ -32,4 +36,5 @@
 <!--        SET -->
 <!--    </update>-->
 <!--    -->
+
 </mapper>

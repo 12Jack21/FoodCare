@@ -4,6 +4,8 @@ import po.Account;
 
 public interface AccountService {
 
+    Account getAccById(int id);
+
     //检测是否存在该用户
     Account getAccByUser(String user);
 

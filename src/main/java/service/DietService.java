@@ -2,9 +2,11 @@ package service;
 
 import po.Diet;
 
+import java.util.List;
+
 public interface DietService {
 
-    //日期用今天
+    //创建日期用今天
     boolean addDiet(int group,int account_id);
 
     boolean addDietDetail(int diet_id,int food_id,int quantity);
@@ -14,7 +16,13 @@ public interface DietService {
     //在移除最后一个 dietDetail时，移除该 diet
     boolean removeDiet(int id);
 
-    
-    //更新 某标签相对于某用户的权重值
+    //得到某用户当天的所有 diet
+    List<Diet> getDietByAccDate(int account_id);
+
+    //得到某用户当天的某个 diet (0-早餐，1-午餐，2-晚餐)
+    Diet getDietByAccDateGroup(int account_id,int group);
+
+    //更新 某标签相对于某用户的权重值(添加了dietDetail后需要同步更新)
+
 
 }

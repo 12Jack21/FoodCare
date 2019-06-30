@@ -52,6 +52,10 @@ public class Food {
     public Food() {
     }
 
+    public Food(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

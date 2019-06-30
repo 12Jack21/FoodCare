@@ -1,0 +1,90 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import po.Account;
+import service.AccountService;
+import service.DietService;
+
+import static MyUtil.MyConvertor.*;
+
+@RestController
+@RequestMapping("/acc")
+public class AccountController {
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private DietService dietService;
+
+    //确认账户是否存在(在输入用户名时确定)
+    @PostMapping("/exists")
+    public Object exists(@RequestParam String user) {
+        return accountService.getAccByUser(user) != null;
+    }
+
+    //已经确认账户存在了
+    @PostMapping("/login")
+    public Object login(@RequestParam("user") String user, @RequestParam("password") String password) {
+        if (accountService.canLogin(user, password))
+            return toAccountLog(accountService.getAccByUser(user), true);
+        else
+            return toAccountLog(null, false);
+    }
+
+    //TODO 加上邮箱
+    @PostMapping("/register")
+    public Object register(@RequestParam("user") String user, @RequestParam("password") String password) {
+        if (accountService.getAccByUser(user) == null)
+            //账户已存在
+            return 0;
+        else
+            return accountService.register(user, password);
+    }
+
+    @PostMapping("/info")
+    public Object getInfo(@RequestParam int account_id) {
+        return accountService.getAccById(account_id);
+    }
+
+    @PostMapping("/cancel")
+    public Object cancel(@RequestParam int account_id) {
+        return accountService.cancel(account_id);
+    }
+
+    @RequestMapping("/picture")
+    public Object changePic(@RequestParam("account_id") int account_id, @RequestParam("picture") Byte[] picture) {
+        return accountService.updatePic(account_id, picture);
+    }
+
+    @PostMapping("/updateInfo")
+    public Object changeInfo(@RequestParam Account account) {
+        return accountService.updateInfo(account);
+    }
+
+
+    @RequestMapping("/diet/add")
+    public Object addDiet(@RequestParam("account_id") int account_id, @RequestParam("group") int group) {
+        return dietService.addDiet(group, account_id);
+    }
+
+    @Transactional
+    @RequestMapping("/dietDetail/add")
+    //方法中可能触发添加 diet
+    public Object addFirstDietDetail(@RequestParam("food_id") int food_id, @RequestParam("quantity") int quantity,
+                                     @RequestParam("account_id") int account_id, @RequestParam("group") int group) {
+        boolean op;
+        //存在 diet
+        if (dietService.getDietByAccDateGroup(account_id, group) == null) {
+            op = dietService.addDiet(group, account_id);
+        }
+        op = dietService.addDietDetail(dietService.getDietByAccDateGroup(account_id, group).getId(), food_id, quantity);
+
+        return op;
+    }
+
+
+}
