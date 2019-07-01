@@ -2,8 +2,13 @@ package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import service.DietService;
 import service.FoodService;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("/food")
@@ -57,10 +62,28 @@ public class FoodController {
 
     @PostMapping("/reg")
     //TODO 完善图片识别
-    public Object recognizePicture(@RequestParam Byte[] picture){
+    public Object recognizePicture(@RequestParam("img") Byte[] picture){
 
         return foodService.recognizePicture(picture);
     }
 
+    @RequestMapping("/reggg")
+    //本地测试时使用
+    public Object recognizeName(@RequestParam("img") MultipartFile file) throws IOException {
+
+        String filename = file.getOriginalFilename();
+        System.out.println(filename);
+
+        byte[] bs = file.getBytes();
+
+        return foodService.recognize(bs);
+    }
+
+
+    @RequestMapping("/text")
+    public Object stringgg(@RequestParam("text")String text){
+        String newText = "%%%%%%" + text + "%%%%%%%";
+        return newText;
+    }
 
 }

@@ -26,6 +26,8 @@ public interface FoodDAO { //TODO 大量查询要写
 
     Boolean insert(Food food);
 
+    Boolean simpleInsert(Food food);
+
     Boolean delete(int id);
 
     //Boolean update(Food food);

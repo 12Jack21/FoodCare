@@ -50,5 +50,10 @@ public class DietServiceImp implements DietService {
         return dietDAO.getByAccGroup(account_id, group);
     }
 
+    @Override
+    public List<DietDetail> getDetailsByDiet(int diet_id) {
+        return dietDetailDAO.getByDietId(diet_id);
+    }
+
 
 }

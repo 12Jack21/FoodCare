@@ -9,8 +9,8 @@
         SELECT * FROM food WHERE id=#{id}
     </select>
 
-    <select id="getBySpecifiedName" parameterType="int" resultType="po.Food">
-        SELECT * FROM food WHERE name=#{name}
+    <select id="getBySpecifiedName" parameterType="string" resultType="po.Food">
+        SELECT * FROM food WHERE name = #{name}
     </select>
 
     <select id="getByName" parameterType="int" resultType="po.Food">
@@ -18,7 +18,7 @@
     </select>
 
     <select id="getAllFood" resultType="po.Food">
-        SELECT * FROM  food
+        SELECT * FROM food
     </select>
 
     <select id="getByGroup" resultType="po.Food">
@@ -34,12 +34,17 @@
     </select>
 
     <insert id="insert" parameterType="po.Food">
-        INSERT INTO food(group,name,picture,category,type,heat,tanshui,
+        INSERT INTO food(`group`,`name`,picture,category,`type`,heat,tanshui,
         fat,protein,cellulose,vitaminA,vitaminC,vitaminE,carotene,liuan,hehuang,yansuan,cholesterol,
-        mei,gai,tie,xin,tong,meng,jia,lin,na,xi,measure,evaluate,ingredient,excipient,practice)
+        mei,gai,tie,xin,tong,meng,jia,lin,na,xi,measure,evaluate,ingredient,excipient,seasoning,practice,cook)
         VALUES (#{group},#{name},#{picture},#{category},#{type},#{heat},#{tanshui},
         #{fat},#{protein},#{cellulose},#{vitaminA},#{vitaminC},#{vitaminE},#{carotene},#{liuan},#{hehuang},#{yansuan},#{cholesterol},
-        #{mei},#{gai},#{tie},#{xin},#{tong},#{meng},#{jia},#{lin},#{na},#{xi},#{measure},#{evaluate},#{ingredient},#{excipient},#{practice})
+        #{mei},#{gai},#{tie},#{xin},#{tong},#{meng},#{jia},#{lin},#{na},#{xi},#{measure},#{evaluate},#{ingredient},#{excipient},#{seasoning},#{practice},#{cook})
+    </insert>
+
+    <insert id="simpleInsert" parameterType="po.Food">
+        INSERT INTO food(name,protein,`group`) VALUES (
+        #{name},#{protein},#{group})
     </insert>
 
     <delete id="delete" parameterType="int">

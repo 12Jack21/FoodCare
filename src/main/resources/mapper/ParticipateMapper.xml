@@ -5,152 +5,154 @@
 
 <mapper namespace="dao.ParticipateDAO">
 
-    <resultMap id="CompScores" type="po.Participate">
-        <id property="competition.id" column="id"/>
-        <result property="groupno" column="groupno"/>
-        <result property="score" column="score"/>
-        <association property="competition" javaType="po.Competition">
-            <id property="id" column="id"/>
-            <result property="project" column="project"/>
-            <result property="type" column="type"/>
-            <result property="sexgroup" column="sexgroup"/>
-            <result property="agegroup" column="agegroup"/>
-            <result property="place" column="place"/>
-            <result property="date" column="date"/>
-            <result property="isEnd" column="isEnd"/>
-        </association>
-    </resultMap>
+<!--    <resultMap id="CompScores" type="po.Participate">-->
+<!--        <id property="competition.id" column="id"/>-->
+<!--        <result property="groupno" column="groupno"/>-->
+<!--        <result property="score" column="score"/>-->
+<!--        <association property="competition" javaType="po.Competition">-->
+<!--            <id property="id" column="id"/>-->
+<!--            <result property="project" column="project"/>-->
+<!--            <result property="type" column="type"/>-->
+<!--            <result property="sexgroup" column="sexgroup"/>-->
+<!--            <result property="agegroup" column="agegroup"/>-->
+<!--            <result property="place" column="place"/>-->
+<!--            <result property="date" column="date"/>-->
+<!--            <result property="isEnd" column="isEnd"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
 
-    <!--带有运动员信息（包括所属代表队）和成绩-->
-    <resultMap id="AthScores" type="po.Participate">
-        <id property="athlete.id" column="id"/>
-        <result property="groupno" column="groupno"/>
-        <result property="score" column="score"/>
-        <association property="athlete" javaType="po.Athlete">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
-            <result property="sex" column="sex"/>
-            <result property="age" column="age"/>
-            <result property="athID" column="athID"/>
-            <result property="no" column="no"/>
-            <association property="team" javaType="po.Team">
-                <result property="name" column="teamName"/>
-            </association>
-        </association>
-    </resultMap>
+<!--    &lt;!&ndash;带有运动员信息（包括所属代表队）和成绩&ndash;&gt;-->
+<!--    <resultMap id="AthScores" type="po.Participate">-->
+<!--        <id property="athlete.id" column="id"/>-->
+<!--        <result property="groupno" column="groupno"/>-->
+<!--        <result property="score" column="score"/>-->
+<!--        <association property="athlete" javaType="po.Athlete">-->
+<!--            <id property="id" column="id"/>-->
+<!--            <result property="name" column="name"/>-->
+<!--            <result property="sex" column="sex"/>-->
+<!--            <result property="age" column="age"/>-->
+<!--            <result property="athID" column="athID"/>-->
+<!--            <result property="no" column="no"/>-->
+<!--            <association property="team" javaType="po.Team">-->
+<!--                <result property="name" column="teamName"/>-->
+<!--            </association>-->
+<!--        </association>-->
+<!--    </resultMap>-->
 
-    <select id="getScoresByAth" resultMap="CompScores" parameterType="int">
-        SELECT c.*,p.groupno,p.score FROM participate p
-        LEFT JOIN competition c
-        ON p.comp_id=c.id
-        WHERE p.ath_id=#{param1}
-        AND c.type = #{param2}
-    </select>
+<!--    <select id="getScoresByAth" resultMap="CompScores" parameterType="int">-->
+<!--        SELECT c.*,p.groupno,p.score FROM participate p-->
+<!--        LEFT JOIN competition c-->
+<!--        ON p.comp_id=c.id-->
+<!--        WHERE p.ath_id=#{param1}-->
+<!--        AND c.type = #{param2}-->
+<!--    </select>-->
 
-    <select id="getAthScoresByCompName" resultMap="AthScores" parameterType="int">
-        SELECT c.*,p.groupno,p.score FROM participate p
-        LEFT JOIN competition c
-        ON p.comp_id=c.id
-        WHERE p.ath_id=#{param1}
-        AND c.name IS LIKE '%#{param2}%'
-    </select>
+<!--    <select id="getAthScoresByCompName" resultMap="AthScores" parameterType="int">-->
+<!--        SELECT c.*,p.groupno,p.score FROM participate p-->
+<!--        LEFT JOIN competition c-->
+<!--        ON p.comp_id=c.id-->
+<!--        WHERE p.ath_id=#{param1}-->
+<!--        AND c.name IS LIKE '%#{param2}%'-->
+<!--    </select>-->
 
-    <select id="getSingleAthById" parameterType="int" resultMap="AthScores">
-        SELECT a.id,a.name,a.no,p.score
-        FROM participate p
-        LEFT JOIN athlete a
-        ON p.ath_id=a.id
-        WHERE a.id=#{param2}
-        AND p.comp_id=#{param1}
-    </select>
-    <select id="getAthletesRankByComp" resultMap="AthScores" parameterType="int">
-        SELECT a.*,p.groupno,p.score FROM participate p
-        LEFT JOIN athlete a
-        ON p.ath_id=a.id
-        WHERE p.comp_id=#{compid}
-        ORDER BY p.score DESC
-    </select>
+<!--    <select id="getSingleAthById" parameterType="int" resultMap="AthScores">-->
+<!--        SELECT a.id,a.name,a.no,p.score-->
+<!--        FROM participate p-->
+<!--        LEFT JOIN athlete a-->
+<!--        ON p.ath_id=a.id-->
+<!--        WHERE a.id=#{param2}-->
+<!--        AND p.comp_id=#{param1}-->
+<!--    </select>-->
+<!--    <select id="getAthletesRankByComp" resultMap="AthScores" parameterType="int">-->
+<!--        SELECT a.*,p.groupno,p.score FROM participate p-->
+<!--        LEFT JOIN athlete a-->
+<!--        ON p.ath_id=a.id-->
+<!--        WHERE p.comp_id=#{compid}-->
+<!--        ORDER BY p.score DESC-->
+<!--    </select>-->
 
-    <select id="getScoresByComp" resultMap="AthScores" parameterType="int">
-        SELECT a.*,p.groupno,p.score,t.`name` teamName
-        FROM
-            participate p
-                LEFT JOIN athlete a ON p.ath_id = a.id
-                LEFT JOIN team t ON a.teamid = t.id
-        WHERE
-            p.comp_id = #{compid}
-        ORDER BY
-            p.groupno
-    </select>
+<!--    <select id="getScoresByComp" resultMap="AthScores" parameterType="int">-->
+<!--        SELECT a.*,p.groupno,p.score,t.`name` teamName-->
+<!--        FROM-->
+<!--            participate p-->
+<!--                LEFT JOIN athlete a ON p.ath_id = a.id-->
+<!--                LEFT JOIN team t ON a.teamid = t.id-->
+<!--        WHERE-->
+<!--            p.comp_id = #{compid}-->
+<!--        ORDER BY-->
+<!--            p.groupno-->
+<!--    </select>-->
 
-    <select id="getCompScoresByTeam" resultMap="AthScores" parameterType="int">
-        SELECT a.*,p.groupno,p.score FROM participate p
-        LEFT JOIN athlete a
-        ON p.ath_id=a.id
-        WHERE p.comp_id=#{param1}
-        AND a.teamid = #{param2}
-        ORDER BY p.score DESC
-    </select>
+<!--    <select id="getCompScoresByTeam" resultMap="AthScores" parameterType="int">-->
+<!--        SELECT a.*,p.groupno,p.score FROM participate p-->
+<!--        LEFT JOIN athlete a-->
+<!--        ON p.ath_id=a.id-->
+<!--        WHERE p.comp_id=#{param1}-->
+<!--        AND a.teamid = #{param2}-->
+<!--        ORDER BY p.score DESC-->
+<!--    </select>-->
 
-    <select id="getPersonalScore" resultType="double" parameterType="int">
-        SELECT SUM(p.score) FROM participate p
-        LEFT JOIN competition c
-        ON p.comp_id=c.id
-        WHERE p.ath_id=#{param1}
-        AND c.type = #{param2}
-    </select>
+<!--    <select id="getPersonalScore" resultType="double" parameterType="int">-->
+<!--        SELECT SUM(p.score) FROM participate p-->
+<!--        LEFT JOIN competition c-->
+<!--        ON p.comp_id=c.id-->
+<!--        WHERE p.ath_id=#{param1}-->
+<!--        AND c.type = #{param2}-->
+<!--    </select>-->
 
-    <select id="getFinalScore" parameterType="int" resultType="double">
-        SELECT score
-        FROM participate
-        WHERE comp_id = #{param1}
-        AND ath_id = #{param2}
-    </select>
+<!--    <select id="getFinalScore" parameterType="int" resultType="double">-->
+<!--        SELECT score-->
+<!--        FROM participate-->
+<!--        WHERE comp_id = #{param1}-->
+<!--        AND ath_id = #{param2}-->
+<!--    </select>-->
 
-    <select id="getCompTotalScoreByTeam" resultType="double" parameterType="int">
-        SELECT SUM(p.score) FROM participate p
-        LEFT JOIN athlete a
-        ON p.ath_id=a.id
-        WHERE p.comp_id=#{param1}
-        GROUP BY a.teamid
-        HAVING a.teamid = #{param2}
-    </select>
+<!--    <select id="getCompTotalScoreByTeam" resultType="double" parameterType="int">-->
+<!--        SELECT SUM(p.score) FROM participate p-->
+<!--        LEFT JOIN athlete a-->
+<!--        ON p.ath_id=a.id-->
+<!--        WHERE p.comp_id=#{param1}-->
+<!--        GROUP BY a.teamid-->
+<!--        HAVING a.teamid = #{param2}-->
+<!--    </select>-->
 
-    <select id="getMaxAthGroupNoOfComp" parameterType="int" resultType="integer">
-        SELECT MAX(groupno)
-        FROM participate p
-        WHERE p.comp_id = #{compid}
-    </select>
+<!--    <select id="getMaxAthGroupNoOfComp" parameterType="int" resultType="integer">-->
+<!--        SELECT MAX(groupno)-->
+<!--        FROM participate p-->
+<!--        WHERE p.comp_id = #{compid}-->
+<!--    </select>-->
 
-    <select id="getAthByCompGroup" parameterType="int" resultType="integer">
-        SELECT ath_id
-        FROM participate
-        WHERE comp_id = #{param1}
-        AND groupno=#{param2}
-    </select>
+<!--    <select id="getAthByCompGroup" parameterType="int" resultType="integer">-->
+<!--        SELECT ath_id-->
+<!--        FROM participate-->
+<!--        WHERE comp_id = #{param1}-->
+<!--        AND groupno=#{param2}-->
+<!--    </select>-->
 
-    <insert id="addParticipate" parameterType="po.Participate">
-        INSERT INTO participate (ath_id,comp_id)
-        VALUES (#{param1},#{param2})
-    </insert>
+<!--    <insert id="addParticipate" parameterType="po.Participate">-->
+<!--        INSERT INTO participate (ath_id,comp_id)-->
+<!--        VALUES (#{param1},#{param2})-->
+<!--    </insert>-->
 
-    <delete id="deleteParticipate">
-        DELETE FROM participate
-        WHERE ath_id=#{param1}
-        AND comp_id=#{param2}
-    </delete>
+<!--    <delete id="deleteParticipate">-->
+<!--        DELETE FROM participate-->
+<!--        WHERE ath_id=#{param1}-->
+<!--        AND comp_id=#{param2}-->
+<!--    </delete>-->
 
-    <update id="updateGroupNo">
-        UPDATE participate
-        SET groupno = #{param3}
-        WHERE ath_id = #{param1}
-        AND comp_id = #{param2}
-    </update>
+<!--    <update id="updateGroupNo">-->
+<!--        UPDATE participate-->
+<!--        SET groupno = #{param3}-->
+<!--        WHERE ath_id = #{param1}-->
+<!--        AND comp_id = #{param2}-->
+<!--    </update>-->
 
-    <update id="updateScore">
-        UPDATE participate
-        SET score = #{param3}
-        WHERE ath_id = #{param1}
-        AND comp_id = #{param2}
-    </update>
+<!--    <update id="updateScore">-->
+<!--        UPDATE participate-->
+<!--        SET score = #{param3}-->
+<!--        WHERE ath_id = #{param1}-->
+<!--        AND comp_id = #{param2}-->
+<!--    </update>-->
+
+
 </mapper>

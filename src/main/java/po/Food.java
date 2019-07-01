@@ -45,15 +45,24 @@ public class Food {
     //主料
     private String ingredient;
     //辅料
-    private String excipients;
+    private String excipient;
+    //调料
+    private String seasoning;
     //菜品做法
-    private String pratice;
+    private String practice;
+    //烹饪工艺
+    private String cook;
 
     public Food() {
     }
 
     public Food(int id) {
         this.id = id;
+    }
+
+    public Food(String name, Double protein) {
+        this.name = name;
+        this.protein = protein;
     }
 
     public int getId() {
@@ -312,19 +321,35 @@ public class Food {
         this.ingredient = ingredient;
     }
 
-    public String getExcipients() {
-        return excipients;
+    public String getExcipient() {
+        return excipient;
     }
 
-    public void setExcipients(String excipients) {
-        this.excipients = excipients;
+    public void setExcipient(String excipient) {
+        this.excipient = excipient;
     }
 
-    public String getPratice() {
-        return pratice;
+    public String getSeasoning() {
+        return seasoning;
     }
 
-    public void setPratice(String pratice) {
-        this.pratice = pratice;
+    public void setSeasoning(String seasoning) {
+        this.seasoning = seasoning;
+    }
+
+    public String getPractice() {
+        return practice;
+    }
+
+    public void setPractice(String practice) {
+        this.practice = practice;
+    }
+
+    public String getCook() {
+        return cook;
+    }
+
+    public void setCook(String cook) {
+        this.cook = cook;
     }
 }

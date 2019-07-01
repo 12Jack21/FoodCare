@@ -4,99 +4,101 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.CompetitionDAO">
-    <resultMap id="CompetitionInf" type="po.Competition">
-        <id property="id" column="id"/>
-        <result property="project" column="project"/>
-        <result property="type" column="type"/>
-        <result property="sexgroup" column="sexgroup"/>
-        <result property="agegroup" column="agegroup"/>
-        <result property="place" column="place"/>
-        <result property="date" column="date"/>
-        <result property="isEnd" column="isEnd"/>
-        <collection property="athletes" ofType="po.Athlete">
-            <id property="id" column="ath_id"/>
-            <result property="name" column="name"/>
-            <result property="sex" column="sex"/>
-            <result property="age" column="age"/>
-            <result property="athID" column="athID"/>
-            <result property="no" column="no"/>
-        </collection>
 
-<!--        <collection property="athletes" ofType="po.Athlete"-->
-<!--                    select="dao.AthleteDAO.getCompAthletes" column="id"/>-->
-    </resultMap>
+<!--    <resultMap id="CompetitionInf" type="po.Competition">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="project" column="project"/>-->
+<!--        <result property="type" column="type"/>-->
+<!--        <result property="sexgroup" column="sexgroup"/>-->
+<!--        <result property="agegroup" column="agegroup"/>-->
+<!--        <result property="place" column="place"/>-->
+<!--        <result property="date" column="date"/>-->
+<!--        <result property="isEnd" column="isEnd"/>-->
+<!--        <collection property="athletes" ofType="po.Athlete">-->
+<!--            <id property="id" column="ath_id"/>-->
+<!--            <result property="name" column="name"/>-->
+<!--            <result property="sex" column="sex"/>-->
+<!--            <result property="age" column="age"/>-->
+<!--            <result property="athID" column="athID"/>-->
+<!--            <result property="no" column="no"/>-->
+<!--        </collection>-->
 
-<!--    <select id="getAllCompetitions" resultMap="CompetitionInf" >-->
-<!--        SELECT c.*,a.id ath_id,a.name,a.sex,a.age,a.athID,a.no-->
-<!--        FROM competition c-->
-<!--        LEFT JOIN participate p ON c.id=p.comp_id-->
-<!--        LEFT JOIN athlete a ON p.ath_id=a.id-->
+<!--        &lt;!&ndash;        <collection property="athletes" ofType="po.Athlete"&ndash;&gt;-->
+<!--        &lt;!&ndash;                    select="dao.AthleteDAO.getCompAthletes" column="id"/>&ndash;&gt;-->
+<!--    </resultMap>-->
+
+<!--    &lt;!&ndash;    <select id="getAllCompetitions" resultMap="CompetitionInf" >&ndash;&gt;-->
+<!--    &lt;!&ndash;        SELECT c.*,a.id ath_id,a.name,a.sex,a.age,a.athID,a.no&ndash;&gt;-->
+<!--    &lt;!&ndash;        FROM competition c&ndash;&gt;-->
+<!--    &lt;!&ndash;        LEFT JOIN participate p ON c.id=p.comp_id&ndash;&gt;-->
+<!--    &lt;!&ndash;        LEFT JOIN athlete a ON p.ath_id=a.id&ndash;&gt;-->
+<!--    &lt;!&ndash;    </select>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    如果需要，则可以进行嵌套查询&ndash;&gt;-->
+<!--    <select id="getAllCompetitions" resultType="po.Competition" >-->
+<!--        SELECT * FROM competition-->
 <!--    </select>-->
 
-<!--    如果需要，则可以进行嵌套查询-->
-    <select id="getAllCompetitions" resultType="po.Competition" >
-        SELECT * FROM competition
-    </select>
+<!--    <select id="getCompetition" resultType="po.Competition" parameterType="int">-->
+<!--        SELECT * FROM competition WHERE id= #{compid}-->
+<!--    </select>-->
+<!--    <select id="getCompetitionsByType" resultType="po.Competition" parameterType="int">-->
+<!--        SELECT * FROM competition WHERE type = #{type}-->
+<!--    </select>-->
 
-    <select id="getCompetition" resultType="po.Competition" parameterType="int">
-        SELECT * FROM competition WHERE id= #{compid}
-    </select>
-    <select id="getCompetitionsByType" resultType="po.Competition" parameterType="int">
-        SELECT * FROM competition WHERE type = #{type}
-    </select>
+<!--    <select id="getCompetitionsByAth" resultType="po.Competition" parameterType="int">-->
+<!--        SELECT c.* FROM competition c-->
+<!--        LEFT JOIN participate p ON c.id=p.comp_id-->
+<!--        LEFT JOIN athlete a ON a.id=p.ath_id-->
+<!--        WHERE a.id=#{athid}-->
+<!--    </select>-->
 
-    <select id="getCompetitionsByAth" resultType="po.Competition" parameterType="int">
-        SELECT c.* FROM competition c
-        LEFT JOIN participate p ON c.id=p.comp_id
-        LEFT JOIN athlete a ON a.id=p.ath_id
-        WHERE a.id=#{athid}
-    </select>
+<!--    <select id="getCompetitionsByRef" resultType="po.Competition" parameterType="int">-->
+<!--        SELECT c.* FROM competition c-->
+<!--        LEFT JOIN judge j ON c.id=j.comp_id-->
+<!--        LEFT JOIN referee r ON r.id=j.ref_id-->
+<!--        WHERE r.id = #{refid}-->
+<!--    </select>-->
 
-    <select id="getCompetitionsByRef" resultType="po.Competition" parameterType="int">
-        SELECT c.* FROM competition c
-        LEFT JOIN judge j ON c.id=j.comp_id
-        LEFT JOIN referee r ON r.id=j.ref_id
-        WHERE r.id = #{refid}
-    </select>
+<!--    <select id="getCompetitionsByTeam" resultType="po.Competition" parameterType="int">-->
+<!--        SELECT c.* FROM competition c-->
+<!--        LEFT JOIN participate p ON c.id=p.comp_id-->
+<!--        LEFT JOIN athlete a ON a.id=p.ath_id-->
+<!--        WHERE a.teamid=#{teamid}-->
+<!--    </select>-->
 
-    <select id="getCompetitionsByTeam" resultType="po.Competition" parameterType="int">
-        SELECT c.* FROM competition c
-        LEFT JOIN participate p ON c.id=p.comp_id
-        LEFT JOIN athlete a ON a.id=p.ath_id
-        WHERE a.teamid=#{teamid}
-    </select>
+<!--    <select id="getEndCompetitions" resultType="po.Competition">-->
+<!--        SELECT * FROM competition c WHERE c.isEnd = 1-->
+<!--    </select>-->
 
-    <select id="getEndCompetitions" resultType="po.Competition">
-        SELECT * FROM competition c WHERE c.isEnd = 1
-    </select>
+<!--    <select id="getUnEndCompetitions" resultType="po.Competition">-->
+<!--        SELECT * FROM competition c WHERE c.isEnd = 0-->
+<!--    </select>-->
 
-    <select id="getUnEndCompetitions" resultType="po.Competition">
-        SELECT * FROM competition c WHERE c.isEnd = 0
-    </select>
+<!--    <insert id="addCompetition" parameterType="po.Competition" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
+<!--        INSERT INTO competition (project,type,sexgroup,agegroup,place,date)-->
+<!--        VALUES (#{project},#{type},#{sexgroup},#{agegroup},#{place},#{date})-->
+<!--    </insert>-->
 
-    <insert id="addCompetition" parameterType="po.Competition" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO competition (project,type,sexgroup,agegroup,place,date) 
-        VALUES (#{project},#{type},#{sexgroup},#{agegroup},#{place},#{date}) 
-    </insert>
+<!--    <delete id="deleteCompetition" parameterType="int">-->
+<!--        DELETE FROM competition WHERE id = #{compid}-->
+<!--    </delete>-->
 
-    <delete id="deleteCompetition" parameterType="int">
-        DELETE FROM competition WHERE id = #{compid}
-    </delete>
+<!--    <update id="updateCompetition" parameterType="po.Competition">-->
+<!--        UPDATE competition-->
+<!--        <set>-->
+<!--            <if test="place!=null">-->
+<!--                place = #{place},-->
+<!--            </if>-->
+<!--            <if test="date!=null">-->
+<!--                date = #{date},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        WHERE id = #{id}-->
+<!--    </update>-->
 
-    <update id="updateCompetition" parameterType="po.Competition">
-        UPDATE competition
-        <set>
-            <if test="place!=null">
-                place = #{place},
-            </if>
-            <if test="date!=null">
-                date = #{date},
-            </if>
-        </set>
-        WHERE id = #{id}
-    </update>
+<!--    <update id="updateCompetitionEnd" parameterType="int">-->
+<!--        UPDATE competition SET isEnd = 1 WHERE id = #{compid}-->
+<!--    </update>-->
 
-    <update id="updateCompetitionEnd" parameterType="int">
-        UPDATE competition SET isEnd = 1 WHERE id = #{compid}
-    </update>
 </mapper>

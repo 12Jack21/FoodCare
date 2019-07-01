@@ -4,6 +4,7 @@ import po.Account;
 import po.Food;
 import po.FoodLabel;
 import po.Label;
+import vo.FoodRank;
 import vo.FoodReg;
 
 import java.util.List;
@@ -48,6 +49,9 @@ public interface FoodService {
 
     //根据一张图片识别食物
     List<FoodReg> recognizePicture(Byte[] picture);
+
+    //根据一张图片识别食物(只返回名字)
+    List<FoodRank> recognize(byte[] picture);
 
     //提供饮食建议（根据用户个人信息和根据图片识别出的食品）
     String advice(Account account, String foodName);

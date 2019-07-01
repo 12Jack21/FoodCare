@@ -1,5 +1,6 @@
 package service.Imp;
 
+import MyUtil.ModelPredict;
 import dao.FoodDAO;
 import dao.FoodLabelDAO;
 import dao.LabelDAO;
@@ -11,8 +12,10 @@ import po.Food;
 import po.FoodLabel;
 import po.Label;
 import service.FoodService;
+import vo.FoodRank;
 import vo.FoodReg;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +104,11 @@ public class FoodServiceImp implements FoodService {
 
 
         return null;
+    }
+
+    @Override
+    public List<FoodRank> recognize(byte[] picture){
+        return ModelPredict.recognize(picture);
     }
 
     @Override

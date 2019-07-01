@@ -1,6 +1,7 @@
 package service;
 
 import po.Diet;
+import po.DietDetail;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public interface DietService {
 
     //得到某用户当天的某个 diet (0-早餐，1-午餐，2-晚餐)
     Diet getDietByAccDateGroup(int account_id,int group);
+
+    //得到某个 Diet中的所有明细
+    List<DietDetail> getDetailsByDiet(int diet_id);
 
     //更新 某标签相对于某用户的权重值(添加了dietDetail后需要同步更新)
 

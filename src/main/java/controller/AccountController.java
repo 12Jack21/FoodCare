@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import po.Account;
+import po.DietDetail;
 import service.AccountService;
 import service.DietService;
+
+import java.util.List;
 
 import static MyUtil.MyConvertor.*;
 
@@ -74,7 +77,7 @@ public class AccountController {
     @Transactional
     @RequestMapping("/dietDetail/add")
     //方法中可能触发添加 diet
-    public Object addFirstDietDetail(@RequestParam("food_id") int food_id, @RequestParam("quantity") int quantity,
+    public Object addDietDetail(@RequestParam("food_id") int food_id, @RequestParam("quantity") int quantity,
                                      @RequestParam("account_id") int account_id, @RequestParam("group") int group) {
         boolean op;
         //存在 diet
@@ -83,6 +86,21 @@ public class AccountController {
         }
         op = dietService.addDietDetail(dietService.getDietByAccDateGroup(account_id, group).getId(), food_id, quantity);
 
+        return op;
+    }
+
+    @Transactional
+    @RequestMapping("/dietDetail/delete")
+    //方法中可能触发 删除 diet
+    public Object removeDietDetail(@RequestParam("diet_id")int diet_id,@RequestParam("food_id")int food_id){
+        //寻找diet有多少个 dietDetail
+        List<DietDetail> dietDetails = dietService.getDetailsByDiet(diet_id);
+        boolean op;
+        if(dietDetails.toArray().length == 1){
+            //只有一项，则可以直接删除 diet，数据库级联删除最后一个 dietDetail
+            op = dietService.removeDiet(diet_id);
+        }else
+            op = dietService.removeDietDetail(diet_id, food_id);
         return op;
     }
 
