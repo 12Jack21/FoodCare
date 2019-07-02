@@ -23,6 +23,7 @@ public class AccountController {
     @Autowired
     private DietService dietService;
 
+
     //确认账户是否存在(在输入用户名时确定)
     @PostMapping("/exists")
     public Object exists(@RequestParam String user) {

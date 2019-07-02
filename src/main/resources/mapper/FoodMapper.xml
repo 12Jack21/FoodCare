@@ -13,7 +13,7 @@
         SELECT * FROM food WHERE `name` = #{name}
     </select>
 
-    <select id="getByName" parameterType="int" resultType="po.Food">
+    <select id="getByName" parameterType="string" resultType="po.Food">
         SELECT * FROM food WHERE `name` LIKE #{name}
     </select>
 

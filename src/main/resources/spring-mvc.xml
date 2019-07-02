@@ -85,4 +85,8 @@
         <property name="maxInMemorySize" value="40960" />
     </bean>
 
+    <!--全局跨域访问 CORS-->
+    <bean class="config.CorsConfigurerAdapter"/>
+
+
 </beans>

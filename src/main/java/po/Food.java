@@ -6,6 +6,7 @@ public class Food {
     //食物组别（0-菜品 or 1-食品）
     private int group;
     private String name;
+
     //图片
     private Byte[] picture;
     //食品类别

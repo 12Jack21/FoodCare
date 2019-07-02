@@ -3,8 +3,11 @@ package controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import po.Food;
 import service.DietService;
 import service.FoodService;
+import vo.FoodRank;
+import vo.FoodReg;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,13 +63,15 @@ public class FoodController {
         return foodService.getMealByCategory(category);
     }
 
+    @CrossOrigin //跨域访问的注解
     @PostMapping("/reg")
     //TODO 完善图片识别
     public Object recognizePicture(@RequestParam("img") Byte[] picture){
-
+        System.out.println("Connecting...");
         return foodService.recognizePicture(picture);
     }
 
+    @CrossOrigin
     @RequestMapping("/reggg")
     //本地测试时使用
     public Object recognizeName(@RequestParam("img") MultipartFile file) throws IOException {
@@ -79,11 +84,22 @@ public class FoodController {
         return foodService.recognize(bs);
     }
 
-
+    @CrossOrigin
     @RequestMapping("/text")
     public Object stringgg(@RequestParam("text")String text){
         String newText = "%%%%%%" + text + "%%%%%%%";
+        System.out.println(newText + "Connect....................");
+
         return newText;
     }
+
+    @CrossOrigin
+    @RequestMapping("/json")
+    public Object json(@RequestParam("text")String text){
+        String newText = "%%%%%%" + text + "%%%%%%%";
+        return new FoodRank(newText,0.14f);
+    }
+
+    //http://129.211.79.163:9921/food/food/json
 
 }

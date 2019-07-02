@@ -10,7 +10,7 @@ import java.sql.*;
 public class ReadCSV {
 
     public static void main(String[] args) {
-//        readDishes("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv（新）\\csv\\dishes");
+        readDishes("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv（新）\\csv\\dishes");
 
         readMeal("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv\\others");
 

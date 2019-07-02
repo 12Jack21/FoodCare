@@ -3,6 +3,8 @@ package serviceTest;
 import baseTest.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import po.Food;
+import service.FoodService;
 import service.Imp.FoodServiceImp;
 
 import java.io.BufferedInputStream;
@@ -10,13 +12,23 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import static org.junit.Assert.*;
 
 public class FoodServiceTest extends BaseTest {
     @Autowired
-    private FoodServiceImp foodServiceImp;
+    private FoodService foodService;
 
     private static final double DELTA = 1e-15;
 
+
+    @Test
+    public void getFoodByLabel(){
+
+        List<Food> foods = foodService.getFoodByLabel(1);
+
+        assertEquals(foods.toArray().length,2);
+    }
 
     @Test
     public void recoginizePic(){

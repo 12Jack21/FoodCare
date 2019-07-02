@@ -7,9 +7,21 @@
 
     <resultMap id="foodInf" type="po.FoodLabel">
         <id property="food.id" column="id"/>
-        <association property="label" javaType="po.Food">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
+        <association property="food" javaType="po.Food">
+<!--            <id property="id" column="id"/>-->
+<!--            <result property="name" column="name"/>-->
+<!--            <result property="group" column="group"/>-->
+<!--            <result property="type" column="type"/>-->
+<!--            <result property="category" column="category"/>-->
+<!--            <result property="cellulose" column="cellulose"/>-->
+<!--            <result property="carotene" column="carotene"/>-->
+<!--            <result property="cholesterol" column="cholesterol"/>-->
+<!--            <result property="fat" column="fat"/>-->
+<!--            <result property="heat" column="heat"/>-->
+<!--            <result property="hehuang" column="hehuang"/>-->
+<!--            <result property="protein" column="protein"/>-->
+<!--            <result property="tanshui" column="tanshui"/>-->
+<!--            <result property="evaluate" column="evaluate"/>-->
         </association>
     </resultMap>
 
@@ -28,7 +40,7 @@
         WHERE fl.food_id=#{food_id}
     </select>
 
-    <select id="getFoodByLabelId" parameterType="int" resultMap="labelInf">
+    <select id="getFoodByLabelId" parameterType="int" resultMap="foodInf">
         SELECT f.* FROM
         foodlabel fl LEFT JOIN
         food f ON fl.food_id=f.id
