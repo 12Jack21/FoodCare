@@ -48,7 +48,12 @@
     <mvc:resources mapping="/js.action/**" location="/WEB-INF/js/"/>
     <mvc:resources mapping="/css.action/**" location="/WEB-INF/css/"/>
     <mvc:resources mapping="/vendor.action/**" location="/WEB-INF/vendor/"/>
-    <mvc:resources mapping="/img.action/**" location="/WEB-INF/img/"/>
+
+    <!--食物图片-->
+    <mvc:resources mapping="/img_mid.action/**" location="/WEB-INF/img/image_mid"/>
+    <mvc:resources mapping="/img_high.action/**" location="/WEB-INF/img/image_high"/>
+    <mvc:resources mapping="/img_light.action/**" location="/WEB-INF/img/image_light"/>
+
 
 
     <!--    <mvc:default-servlet-handler/>-->

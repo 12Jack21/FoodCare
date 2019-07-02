@@ -47,7 +47,7 @@ public class DietServiceImp implements DietService {
 
     @Override
     public Diet getDietByAccDateGroup(int account_id, int group) {
-        return dietDAO.getByAccGroup(account_id, group);
+        return dietDAO.getByAccGroup(account_id, group,new Date());
     }
 
     @Override

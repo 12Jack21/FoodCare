@@ -23,10 +23,9 @@ public interface FoodDAO { //TODO 大量查询要写
     List<Food> getByCategory(String category);//模糊查找类别（食品）
 
 
-
     Boolean insert(Food food);
 
-    Boolean simpleInsert(Food food);
+    Boolean simpleInsert(Food food); //只加了 protein,name,group
 
     Boolean delete(int id);
 

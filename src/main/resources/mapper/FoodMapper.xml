@@ -10,11 +10,11 @@
     </select>
 
     <select id="getBySpecifiedName" parameterType="string" resultType="po.Food">
-        SELECT * FROM food WHERE name = #{name}
+        SELECT * FROM food WHERE `name` = #{name}
     </select>
 
     <select id="getByName" parameterType="int" resultType="po.Food">
-        SELECT * FROM food WHERE name LIKE #{name}
+        SELECT * FROM food WHERE `name` LIKE #{name}
     </select>
 
     <select id="getAllFood" resultType="po.Food">
@@ -22,15 +22,15 @@
     </select>
 
     <select id="getByGroup" resultType="po.Food">
-        SELECT * FROM food WHERE group=#{group}
+        SELECT * FROM food WHERE `group`=#{group}
     </select>
 
     <select id="getByType" resultType="po.Food">
-        SELECT * FROM food WHERE group = 0 AND type LIKE #{type}
+        SELECT * FROM food WHERE `group` = 0 AND `type` LIKE #{type}
     </select>
 
     <select id="getByCategory" resultType="po.Food">
-        SELECT * FROM food WHERE group=1 AND type LIKE #{category}
+        SELECT * FROM food WHERE `group` = 1 AND category LIKE #{category}
     </select>
 
     <insert id="insert" parameterType="po.Food">
@@ -43,7 +43,7 @@
     </insert>
 
     <insert id="simpleInsert" parameterType="po.Food">
-        INSERT INTO food(name,protein,`group`) VALUES (
+        INSERT INTO food(`name`,protein,`group`) VALUES (
         #{name},#{protein},#{group})
     </insert>
 

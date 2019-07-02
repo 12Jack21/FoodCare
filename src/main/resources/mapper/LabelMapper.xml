@@ -10,7 +10,7 @@
     </select>
 
     <insert id="insert" parameterType="po.Label">
-        INSERT INTO label(name) VALUES (#{label.name})
+        INSERT INTO label(name) VALUES (#{name})
     </insert>
 
     <delete id="delete" parameterType="int">

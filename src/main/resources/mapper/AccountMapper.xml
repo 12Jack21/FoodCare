@@ -19,9 +19,13 @@
     <select id="getId" parameterType="string" resultType="integer">
         SELECT id from account WHERE user=#{user}
     </select>
-    <insert id="insertAccount" parameterType="po.Account" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO account (user,password) values (#{user},#{password})
+    <insert id="insertAccount" parameterType="string">
+        INSERT INTO account (user,password) values (#{param1},#{param2})
     </insert>
+
+    <!--    <insert id="insertAccount" parameterType="po.Account" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
+<!--        INSERT INTO account (user,password) values (#{user},#{password})-->
+<!--    </insert>-->
 
     <delete id="delete" parameterType="int">
         DELETE FROM account WHERE id=#{id}
@@ -50,7 +54,7 @@
             <if test="weight!=-1.0">
                 weight = #{weight},
             </if>
-            <if test="fateRate!=-1.0">
+            <if test="fatRate!=-1.0">
                 weight = #{weight},
             </if>
         </set>

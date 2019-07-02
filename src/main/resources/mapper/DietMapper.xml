@@ -6,15 +6,15 @@
 <mapper namespace="dao.DietDAO">
 
     <select id="getByAccount" parameterType="int" resultType="po.Diet">
-        SELECT * FROM diet WHERE account = #{account_id}
+        SELECT * FROM diet WHERE account_id = #{account_id}
     </select>
 
     <select id="getByAccDate" resultType="po.Diet">
-        SELECT * FROM diet WHERE account = #{param1} AND date = #{param2}
+        SELECT * FROM diet WHERE account_id = #{param1} AND `date` = #{param2}
     </select>
 
     <select id="getByAccGroup" resultType="po.Diet">
-        SELECT * FROM diet WHERE account=#{param1} AND group=#{param2}
+        SELECT * FROM diet WHERE account_id=#{param1} AND `group`=#{param2} AND `date`=#{param3}
     </select>
 
     <select id="getById" parameterType="int" resultType="po.Diet">
@@ -22,7 +22,7 @@
     </select>
 
     <insert id="insert" parameterType="po.Diet">
-        INSERT INTO diet(group,date,account) VALUES (#{group},#{date},#{account.id})
+        INSERT INTO diet(`group`,`date`,account_id) VALUES (#{group},#{date},#{account.id})
 
     </insert>
 

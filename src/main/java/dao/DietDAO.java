@@ -14,7 +14,7 @@ public interface DietDAO {
     List<Diet> getByAccDate(int account_id, Date date);
 
     //还根据diet的组别（早餐）
-    Diet getByAccGroup(int account_id,int group);
+    Diet getByAccGroup(int account_id,int group,Date date);
 
     Diet getById(int id);
 
