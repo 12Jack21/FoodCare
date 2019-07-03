@@ -33,6 +33,12 @@ public class ModelPredict {
             e.printStackTrace();
         }
 
+        System.out.println("图片前十一位byte: ");
+        for (int n = 0;n < 11;n++){
+            int v = picture[n] & 0xFF;
+            String hv = Integer.toHexString(v);
+            System.out.print(hv + "  ");
+        }
         System.out.println(base);
 
 //        String modelDir = curDir + "\\src\\main\\resources";
@@ -51,13 +57,16 @@ public class ModelPredict {
 //        byte[] imageBytes = readAllBytesOrExit(Paths.get(imageFile));
 
 
+        List<FoodRank> foodRanks = null;
         //读取byte 数组图片进去
-        try (Tensor<Float> image = constructAndExecuteGraphToNormalizeImage(picture)) {
+        try {
 
-            //开始训练
+            Tensor<Float> image = constructAndExecuteGraphToNormalizeImage(picture);
+
+            //开始预测
             float[] labelProbabilities = executeInceptionGraph(graphDef, image);
 
-            List<FoodRank> foodRanks = fiveIndex(labelProbabilities,labels);
+            foodRanks = fiveIndex(labelProbabilities,labels);
 
             for (FoodRank f : foodRanks){
 
@@ -67,8 +76,11 @@ public class ModelPredict {
                                 f.getProbability() * 100f));
             }
 
-            return foodRanks;
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
+        return foodRanks;
     }
 
     public static void main(String[] args) {

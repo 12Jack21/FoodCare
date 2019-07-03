@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.MenuItemDAO">
+
+    <select id="getByMenuId" parameterType="int" resultType="po.MenuItem">
+        SELECT * FROM menuitem WHERE menu_id = #{menu_id}
+    </select>
+
+    <insert id="insert" parameterType="po.MenuItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO menuitem(itemName,menu_id) VALUES (#{itemName},#{menu.id})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM menuitem
+        WHERE id=#{id}
+    </delete>
+</mapper>

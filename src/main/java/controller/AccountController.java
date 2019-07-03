@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import po.Account;
 import po.DietDetail;
+import po.Menu;
+import po.MenuItem;
 import service.AccountService;
 import service.DietService;
+import service.MenuService;
 
 import java.util.List;
 
@@ -22,7 +25,8 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private DietService dietService;
-
+    @Autowired
+    private MenuService menuService;
 
     //确认账户是否存在(在输入用户名时确定)
     @PostMapping("/exists")
@@ -59,10 +63,16 @@ public class AccountController {
         return accountService.cancel(account_id);
     }
 
+    @RequestMapping("/pic")
+    //TODO 返回用户图像的图片,先用byte
+    public Object getPicture(@RequestParam("img_path")String img_path){
+        return null;
+    }
+
     @RequestMapping("/picture")
     //TODO 更改Byte类型
     public Object changePic(@RequestParam("account_id") int account_id, @RequestParam("picture") Byte[] picture) {
-        return accountService.updatePic(account_id, picture);
+        return accountService.updatePic(account_id, null);
     }
 
     @PostMapping("/updateInfo")
@@ -108,4 +118,37 @@ public class AccountController {
     }
 
 
+    /**
+     * 以下为MenuService相关的 URL 处理
+     * */
+
+    @RequestMapping("/menu/list")
+    public List<Menu> getMenuByAcc(@RequestParam int account_id){
+        return menuService.getMenuByAccId(account_id);
+    }
+
+    @RequestMapping("/menu/add")
+    public Object addMenu(@RequestParam Menu menu){
+        return menuService.addMenu(menu);
+    }
+
+    @RequestMapping("/menu/delete")
+    public Object deleteMenu(@RequestParam int menu_id){
+        return menuService.deleteMenu(menu_id);
+    }
+
+    @RequestMapping("/menuItem/list")
+    public Object getMenuItemByMenu(@RequestParam int menu_id){
+        return menuService.getItemById(menu_id);
+    }
+
+    @RequestMapping("/menuItem/add")
+    public Object addMenuItem(@RequestParam MenuItem menuItem){
+        return menuService.addItem(menuItem);
+    }
+
+    @RequestMapping("/menuItem/delete")
+    public Object deleteMenuItem(@RequestParam int menuItem_id){
+        return menuService.deleteItem(menuItem_id);
+    }
 }

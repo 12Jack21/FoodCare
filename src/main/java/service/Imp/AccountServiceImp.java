@@ -3,8 +3,14 @@ package service.Imp;
 import dao.AccountDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import po.Account;
 import service.AccountService;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static org.apache.logging.log4j.core.util.Loader.getClassLoader;
 
 @Service
 public class AccountServiceImp implements AccountService {
@@ -37,12 +43,37 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public boolean updatePic(int id, Byte[] picture) {
-        return accountDAO.updatePicture(id, picture);
+    public byte[] getPic(String path) {
+        return new byte[0];
+    }
+
+    @Override
+    //更新头像
+    public boolean updatePic(int id, String picture) {
+
+
+        String classpath = AccountServiceImp.class.getResource("/").getPath();
+
+        try {
+            //得到 Resources 的目录下的文件，不能得到目录
+            File file = ResourceUtils.getFile("classpath:image_user" + "/applicationContext.xml");
+
+            String c = ResourceUtils.getFile("classpath:image_user").getPath();
+            System.out.println(c);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String img_path = AccountServiceImp.class.getResource("/").getPath().replace("classes", "img");
+//        System.out.println("Img_path: " + img_path);
+
+
+        return accountDAO.updatePicture(id, null);
     }
 
     @Override
     public boolean updateInfo(Account account) {
         return accountDAO.updateInfo(account);
     }
+
 }

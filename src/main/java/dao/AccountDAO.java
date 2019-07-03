@@ -20,7 +20,7 @@ public interface AccountDAO {
 
     Boolean updatePassword(int id,String password);
 
-    Boolean updatePicture(int id,Byte[] picture);
+    Boolean updatePicture(int id,String picture);
 
     Boolean updateInfo(Account account);
 

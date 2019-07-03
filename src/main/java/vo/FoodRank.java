@@ -34,4 +34,5 @@ public class FoodRank implements Comparable<FoodRank>{
     public int compareTo(FoodRank o) {
         return o.probability.compareTo(this.probability);
     }
+
 }

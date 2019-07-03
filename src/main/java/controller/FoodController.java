@@ -79,7 +79,6 @@ public class FoodController {
         return foodService.recognize(picture);
     }
 
-
     @CrossOrigin
     @RequestMapping("/reggg")
     //本地测试时使用
@@ -92,6 +91,11 @@ public class FoodController {
 
         return foodService.recognize(bs);
     }
+
+
+    /**
+     * 以下为测试安卓的网络请求框架用的
+     * */
 
     @CrossOrigin
     @RequestMapping("/text")

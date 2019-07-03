@@ -18,8 +18,11 @@ public interface AccountService {
     //用户注销
     boolean cancel(int id);
 
+    //根据路径得到图片
+    byte[] getPic(String path);
+
     //更新头像
-    boolean updatePic(int id,Byte[] picture);
+    boolean updatePic(int id,String picture);
 
     //更新个人信息
     boolean updateInfo(Account account);
