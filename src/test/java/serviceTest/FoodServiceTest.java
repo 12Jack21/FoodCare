@@ -21,6 +21,20 @@ public class FoodServiceTest extends BaseTest {
 
     private static final double DELTA = 1e-15;
 
+    @Test
+    public void getByName(){
+        List<Food> foods = foodService.getFoodByName("蛋");
+
+        System.out.println(foods);
+    }
+
+    @Test
+    public void getByType(){
+        List<Food> foods = foodService.getDishesByType("上海");
+
+        System.out.println(foods);
+    }
+
 
     @Test
     public void getFoodByLabel(){

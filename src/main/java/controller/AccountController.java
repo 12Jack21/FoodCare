@@ -42,7 +42,7 @@ public class AccountController {
     //TODO 加上邮箱
     @PostMapping("/register")
     public Object register(@RequestParam("user") String user, @RequestParam("password") String password) {
-        if (accountService.getAccByUser(user) == null)
+        if (accountService.getAccByUser(user) != null)
             //账户已存在
             return 0;
         else
@@ -60,6 +60,7 @@ public class AccountController {
     }
 
     @RequestMapping("/picture")
+    //TODO 更改Byte类型
     public Object changePic(@RequestParam("account_id") int account_id, @RequestParam("picture") Byte[] picture) {
         return accountService.updatePic(account_id, picture);
     }
@@ -71,6 +72,7 @@ public class AccountController {
 
 
     @RequestMapping("/diet/add")
+    //应该用不到此方法
     public Object addDiet(@RequestParam("account_id") int account_id, @RequestParam("group") int group) {
         return dietService.addDiet(group, account_id);
     }
@@ -81,7 +83,7 @@ public class AccountController {
     public Object addDietDetail(@RequestParam("food_id") int food_id, @RequestParam("quantity") int quantity,
                                      @RequestParam("account_id") int account_id, @RequestParam("group") int group) {
         boolean op;
-        //存在 diet
+        //判断是否存在 diet
         if (dietService.getDietByAccDateGroup(account_id, group) == null) {
             op = dietService.addDiet(group, account_id);
         }

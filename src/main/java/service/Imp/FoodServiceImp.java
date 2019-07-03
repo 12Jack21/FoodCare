@@ -59,6 +59,9 @@ public class FoodServiceImp implements FoodService {
 
     @Override
     public List<Food> getFoodByName(String name) {
+        System.out.println("getByName....");
+        System.out.println("%" + name + "%")
+        ;
         return foodDAO.getByName("%" + name + "%");
     }
 
@@ -74,7 +77,14 @@ public class FoodServiceImp implements FoodService {
 
     @Override
     public List<Food> getDishesByType(String type) {
-        return foodDAO.getByType("%" + type + "%");
+        System.out.println("getByName....");
+        System.out.println('%' + type + "%");
+
+        StringBuilder sb = new StringBuilder("%");
+        sb.append(type);
+        sb.append("%");
+        System.out.println("StringBuilder.... " + sb.toString());
+        return foodDAO.getByType(type);
     }
 
     @Override

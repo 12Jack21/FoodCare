@@ -7,8 +7,13 @@ public class Food {
     private int group;
     private String name;
 
-    //图片
-    private Byte[] picture;
+    //略缩图
+    private String picture_mid;
+    //高清图
+    private String picture_high;
+    //红绿灯图
+    private String light;
+
     //食品类别
     private String category;
     //菜品类别（广东菜）
@@ -90,12 +95,28 @@ public class Food {
         this.name = name;
     }
 
-    public Byte[] getPicture() {
-        return picture;
+    public String getPicture_mid() {
+        return picture_mid;
     }
 
-    public void setPicture(Byte[] picture) {
-        this.picture = picture;
+    public void setPicture_mid(String picture_mid) {
+        this.picture_mid = picture_mid;
+    }
+
+    public String getPicture_high() {
+        return picture_high;
+    }
+
+    public void setPicture_high(String picture_high) {
+        this.picture_high = picture_high;
+    }
+
+    public String getLight() {
+        return light;
+    }
+
+    public void setLight(String light) {
+        this.light = light;
     }
 
     public String getCategory() {

@@ -14,7 +14,7 @@
     </select>
 
     <select id="getByName" parameterType="string" resultType="po.Food">
-        SELECT * FROM food WHERE `name` LIKE #{name}
+        SELECT * FROM food WHERE `name` LIKE CONCAT('%',#{name},'%')
     </select>
 
     <select id="getAllFood" resultType="po.Food">
@@ -26,11 +26,11 @@
     </select>
 
     <select id="getByType" resultType="po.Food">
-        SELECT * FROM food WHERE `group` = 0 AND `type` LIKE #{type}
+        SELECT * FROM food WHERE `group` = 0 AND `type` LIKE CONCAT('%',#{name},'%')
     </select>
 
     <select id="getByCategory" resultType="po.Food">
-        SELECT * FROM food WHERE `group` = 1 AND category LIKE #{category}
+        SELECT * FROM food WHERE `group` = 1 AND category LIKE CONCAT('%',#{category},'%')
     </select>
 
     <insert id="insert" parameterType="po.Food">

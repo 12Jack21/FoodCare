@@ -71,6 +71,15 @@ public class FoodController {
         return foodService.recognizePicture(picture);
     }
 
+    @CrossOrigin //跨域访问的注解
+    @PostMapping("/reg1")
+    //TODO 完善图片识别
+    public Object recognizePicture1(@RequestParam("img") byte[] picture){
+        System.out.println("Connecting...");
+        return foodService.recognize(picture);
+    }
+
+
     @CrossOrigin
     @RequestMapping("/reggg")
     //本地测试时使用
@@ -86,6 +95,7 @@ public class FoodController {
 
     @CrossOrigin
     @RequestMapping("/text")
+    //测试用的 修饰字符串
     public Object stringgg(@RequestParam("text")String text){
         String newText = "%%%%%%" + text + "%%%%%%%";
         System.out.println(newText + "Connect....................");
@@ -95,11 +105,11 @@ public class FoodController {
 
     @CrossOrigin
     @RequestMapping("/json")
+    //测试用的 返回json
     public Object json(@RequestParam("text")String text){
         String newText = "%%%%%%" + text + "%%%%%%%";
         return new FoodRank(newText,0.14f);
     }
 
-    //http://129.211.79.163:9921/food/food/json
 
 }

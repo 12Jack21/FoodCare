@@ -9,7 +9,7 @@
         SELECT * from account WHERE user=#{user}
     </select>
 
-    <select id="getAccountById" resultType="po.Account" parameterType="string">
+    <select id="getAccountById" resultType="po.Account" parameterType="int">
         SELECT * from account WHERE id=#{id}
     </select>
     <select id="getPassword" resultType="string" parameterType="string">
