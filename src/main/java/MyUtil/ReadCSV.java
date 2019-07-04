@@ -10,9 +10,9 @@ import java.sql.*;
 public class ReadCSV {
 
     public static void main(String[] args) {
-        readDishes("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv（新）\\csv\\dishes");
+        readDishes("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv（最后一列是拼音）\\csv\\dishes");
 
-        readMeal("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv\\others");
+        readMeal("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv（最后一列是拼音）\\csv\\others");
 
     }
 
@@ -62,6 +62,8 @@ public class ReadCSV {
                 // 创建CSV读对象 例如:CsvReader(文件路径，分隔符，编码格式);  
                 read = new CsvReader(dirPath + "\\" + files[n].getName(), ',', Charset.forName("UTF-8"));
 
+                System.out.println("CSV file: " + files[n].getName());//打印打开文件的名字
+
                 // 跳过第一行（标题） 如果需要，可以忽略  
                 read.readHeaders();
 
@@ -81,7 +83,8 @@ public class ReadCSV {
                 PreparedStatement ps = conn.prepareStatement(sql);
 
                 while (read.readRecord()) {
-                    System.out.println(read.getRawRecord());
+                    //显示从csv文件中读出来的数据
+//                    System.out.println(read.getRawRecord());
 
                     String lineTxt = read.getRawRecord();
 
@@ -89,7 +92,7 @@ public class ReadCSV {
 //                String[] columns = lineTxt.split(",");
                     String[] columns = lineTxt.split(csvSplitBy);
 
-                    //名称	分类	烹饪工艺	红绿灯地址 预览图地址	热量	碳水化合物	脂肪	蛋白质	纤维素	度量单位	主料	辅料	调料	做法	相关食物
+                    //名称	分类	烹饪工艺	红绿灯地址 预览图地址	热量	碳水化合物	脂肪	蛋白质	纤维素	度量单位	主料	辅料	调料	做法	相关食物 拼音
 
 //                ps.setObject(5,filterDouble(columns[5]));
                     ps.setInt(1, 0);
@@ -105,12 +108,12 @@ public class ReadCSV {
                     ps.setString(10, filterString(columns[11]));
                     ps.setString(11, filterString(columns[12]));
                     ps.setString(12, filterString(columns[13]));
-                    ps.setString(13, filterString(columns[14]));
+                    ps.setString(13, filterString(columns[14])); //practice
 
                     //图片路径
-                    ps.setString(15, "/food/img_mid.action/" + columns[0] + ".jpg");
-                    ps.setString(16, "/food/img_high.action/" + columns[0] + ".jpg");
-                    ps.setString(17, "/food/img_light.action/" + columns[0] + ".png");
+                    ps.setString(15, "/img_mid.action/" + columns[16] + ".jpg");
+                    ps.setString(16, "/img_high.action/" + columns[16] + ".jpg");
+                    ps.setString(17, "/img_light.action/" + columns[16] + ".png");
 
                     //烹饪工艺
                     ps.setString(14, columns[2]);
@@ -171,6 +174,8 @@ public class ReadCSV {
                 // 创建CSV读对象 例如:CsvReader(文件路径，分隔符，编码格式);  
                 read = new CsvReader(dirPath + "\\" + files[n].getName(), ',', Charset.forName("UTF-8"));
 
+                System.out.println("CSV file: " + files[n].getName());//打印打开文件的名字
+
                 // 跳过第一行（标题） 如果需要，可以忽略  
                 read.readHeaders();
 
@@ -186,7 +191,7 @@ public class ReadCSV {
                 PreparedStatement ps = conn.prepareStatement(sql);
 
                 while (read.readRecord()) {
-                    System.out.println(read.getRawRecord());
+//                    System.out.println(read.getRawRecord());
 
                     String lineTxt = read.getRawRecord();
 
@@ -194,44 +199,44 @@ public class ReadCSV {
 
                     String[] columns = lineTxt.split(csvSplitBy);
 
-//名称	分类	评价	红绿灯地址  热量 碳水化合物	脂肪	蛋白质 纤维素	维生素A	维生素C 维生素E 胡萝卜素 硫胺素	核黄素 烟酸 胆固醇	镁	钙	铁	锌	铜	锰	钾	磷	钠	硒	度量单位
+//名称	分类	评价	红绿灯地址 预览图地址 热量 碳水化合物	脂肪	蛋白质 纤维素	维生素A	维生素C 维生素E 胡萝卜素 硫胺素	核黄素 烟酸 胆固醇	镁	钙	铁	锌	铜	锰	钾	磷	钠	硒	度量单位 相关食物 拼音
 
 //                ps.setObject(5,filterDouble(columns[5]));
                     ps.setInt(1, 1); //设置食物的组别，食品即为 1
                     ps.setString(2, columns[0]);
                     ps.setString(3, columns[1]);
-                    ps.setInt(4, Integer.parseInt(columns[4]));
-                    ps.setObject(5, filterDouble(columns[5]));
-                    ps.setObject(6, filterDouble(columns[6]));
-                    ps.setObject(7, filterDouble(columns[7]));
-                    ps.setObject(8, filterDouble(columns[8]));//纤维素
+                    ps.setInt(4, Integer.parseInt(columns[5]));  //heat
+                    ps.setObject(5, filterDouble(columns[6]));
+                    ps.setObject(6, filterDouble(columns[7]));
+                    ps.setObject(7, filterDouble(columns[8]));
+                    ps.setObject(8, filterDouble(columns[9]));//纤维素
 
-                    ps.setObject(9, filterDouble(columns[9]));
-                    ps.setObject(10, filterDouble(columns[10]));
-                    ps.setObject(11, filterDouble(columns[11]));
-                    ps.setObject(12, filterDouble(columns[12]));
-                    ps.setObject(13, filterDouble(columns[13]));
-                    ps.setObject(14, filterDouble(columns[14]));
-                    ps.setObject(15, filterDouble(columns[15]));
-                    ps.setObject(16, filterDouble(columns[16]));
-                    ps.setObject(17, filterDouble(columns[17]));//mei
-                    ps.setObject(18, filterDouble(columns[18]));
-                    ps.setObject(19, filterDouble(columns[19]));
-                    ps.setObject(20, filterDouble(columns[20]));
-                    ps.setObject(21, filterDouble(columns[21]));
-                    ps.setObject(22, filterDouble(columns[22]));
-                    ps.setObject(23, filterDouble(columns[23]));
-                    ps.setObject(24, filterDouble(columns[24]));
-                    ps.setObject(25, filterDouble(columns[25]));
-                    ps.setObject(26, filterDouble(columns[26])); //xi
+                    ps.setObject(9, filterDouble(columns[10]));
+                    ps.setObject(10, filterDouble(columns[11]));
+                    ps.setObject(11, filterDouble(columns[12]));
+                    ps.setObject(12, filterDouble(columns[13]));
+                    ps.setObject(13, filterDouble(columns[14]));
+                    ps.setObject(14, filterDouble(columns[15]));
+                    ps.setObject(15, filterDouble(columns[16]));
+                    ps.setObject(16, filterDouble(columns[17]));
+                    ps.setObject(17, filterDouble(columns[18]));//mei
+                    ps.setObject(18, filterDouble(columns[19]));
+                    ps.setObject(19, filterDouble(columns[20]));
+                    ps.setObject(20, filterDouble(columns[21]));
+                    ps.setObject(21, filterDouble(columns[22]));
+                    ps.setObject(22, filterDouble(columns[23]));
+                    ps.setObject(23, filterDouble(columns[24]));
+                    ps.setObject(24, filterDouble(columns[25]));
+                    ps.setObject(25, filterDouble(columns[26]));
+                    ps.setObject(26, filterDouble(columns[27])); //xi
 
-                    ps.setString(27, filterString(columns[10]));
-                    ps.setString(28, filterString(columns[11]));
+                    ps.setString(27, filterString(columns[28]));//measure
+                    ps.setString(28, filterString(columns[2]));//evaluate
 
                     //图片路径
-                    ps.setString(29, "/food/img_mid.action/" + columns[0] + ".jpg");
-                    ps.setString(30, "/food/img_high.action/" + columns[0] + ".jpg");
-                    ps.setString(31, "/food/img_light.action/" + columns[0] + ".png");
+                    ps.setString(29, "/img_mid.action/" + columns[30] + ".jpg");
+                    ps.setString(30, "/img_high.action/" + columns[30] + ".jpg");
+                    ps.setString(31, "/img_light.action/" + columns[30] + ".png");
 
                     try {
 
