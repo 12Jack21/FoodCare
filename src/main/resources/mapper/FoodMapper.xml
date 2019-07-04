@@ -17,20 +17,39 @@
         SELECT * FROM food WHERE `name` LIKE CONCAT('%',#{name},'%')
     </select>
 
+    <select id="getByNameLimit" parameterType="string" resultType="po.Food">
+        SELECT * FROM food WHERE `name` LIKE CONCAT('%',#{param3},'%') ORDER BY id LIMIT #{param1},#{param2}
+    </select>
+
     <select id="getAllFood" resultType="po.Food">
         SELECT * FROM food
     </select>
 
+    <select id="getAllFoodLimit" resultType="po.Food">
+        SELECT * FROM food ORDER BY id LIMIT #{param1},#{param2}
+    </select>
     <select id="getByGroup" resultType="po.Food">
         SELECT * FROM food WHERE `group`=#{group}
     </select>
 
+    <select id="getByGroupLimit" resultType="po.Food">
+        SELECT * FROM food WHERE `group`=#{param3} ORDER BY id LIMIT #{param1},#{param2}
+    </select>
+
     <select id="getByType" resultType="po.Food">
-        SELECT * FROM food WHERE `group` = 0 AND `type` LIKE CONCAT('%',#{name},'%')
+        SELECT * FROM food WHERE `group` = 0 AND `type` LIKE CONCAT('%',#{type},'%')
+    </select>
+
+    <select id="getByTypeLimit" resultType="po.Food">
+        SELECT * FROM food WHERE `group` = 0 AND `type` LIKE CONCAT('%',#{param3},'%') ORDER BY id LIMIT #{param1},#{param2}
     </select>
 
     <select id="getByCategory" resultType="po.Food">
         SELECT * FROM food WHERE `group` = 1 AND category LIKE CONCAT('%',#{category},'%')
+    </select>
+
+    <select id="getByCategoryLimit" resultType="po.Food">
+        SELECT * FROM food WHERE `group` = 1 AND category LIKE CONCAT('%',#{param3},'%') ORDER BY id LIMIT #{param1},#{param2}
     </select>
 
     <insert id="insert" parameterType="po.Food">

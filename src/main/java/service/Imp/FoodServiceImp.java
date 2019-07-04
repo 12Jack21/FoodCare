@@ -12,8 +12,10 @@ import po.Food;
 import po.FoodLabel;
 import po.Label;
 import service.FoodService;
+import vo.FoodPage;
 import vo.FoodRank;
 import vo.FoodReg;
+import vo.Page;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -36,6 +38,20 @@ public class FoodServiceImp implements FoodService {
     @Override
     public List<Food> getAllFood() {
         return foodDAO.getAllFood();
+    }
+
+    @Override
+    public FoodPage getAllFoodLimit(Page page) {
+        FoodPage foodPage = new FoodPage();
+        List<Food> foods = foodDAO.getAllFoodLimit(page.getStart(),page.getPageSize());
+
+        //到达最后一页了
+        if (foods.toArray().length < page.getPageSize())
+            page.setEnd(true);
+        foodPage.setFoods(foods);
+        foodPage.setPage(page);
+        
+        return foodPage;
     }
 
     @Override
@@ -66,6 +82,11 @@ public class FoodServiceImp implements FoodService {
     }
 
     @Override
+    public FoodPage getFoodByNameLimit(Page page, String name) {
+        return null;
+    }
+
+    @Override
     public List<Food> getAllDishes() {
         return foodDAO.getByGroup(0);
     }
@@ -88,8 +109,18 @@ public class FoodServiceImp implements FoodService {
     }
 
     @Override
+    public FoodPage getFoodByTypeLimit(Page page, String type) {
+        return null;
+    }
+
+    @Override
     public List<Food> getMealByCategory(String category) {
         return foodDAO.getByCategory(category);
+    }
+
+    @Override
+    public FoodPage getFoodByCategoryLimit(Page page, String category) {
+        return null;
     }
 
     @Override

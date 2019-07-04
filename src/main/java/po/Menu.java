@@ -2,10 +2,11 @@ package po;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Menu {
+public class Menu implements Serializable {
 
     //TODO 增加拍照后的菜单图片路径的存储
 

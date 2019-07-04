@@ -1,6 +1,8 @@
 package po;
 
-public class MenuItem {
+import java.io.Serializable;
+
+public class MenuItem implements Serializable {
 
     private int id;
 

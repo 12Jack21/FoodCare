@@ -1,8 +1,9 @@
 package service;
 
+import vo.FoodPage;
+import vo.Page;
 import po.Account;
 import po.Food;
-import po.FoodLabel;
 import po.Label;
 import vo.FoodRank;
 import vo.FoodReg;
@@ -14,6 +15,8 @@ public interface FoodService {
     Food getFoodById(int id);
 
     List<Food> getAllFood();
+
+    FoodPage getAllFoodLimit(Page page);
 
     //按照常用的级别来得到排序后的食物列表
     List<Food> getCommonFood();
@@ -27,6 +30,8 @@ public interface FoodService {
     //根据名称找食物（模糊查找）
     List<Food> getFoodByName(String name);
 
+    FoodPage getFoodByNameLimit(Page page, String name);
+
     //得到所有菜品
     List<Food> getAllDishes();
     //得到所有食品
@@ -35,8 +40,12 @@ public interface FoodService {
     //得到某个菜系的菜品（广东菜）
     List<Food> getDishesByType(String type);
 
+    FoodPage getFoodByTypeLimit(Page page, String type);
+
     //得到某个类别的食品（肉类，蛋类，奶类） -LIKE
     List<Food> getMealByCategory(String category);
+
+    FoodPage getFoodByCategoryLimit(Page page, String category);
 
     //得到具有某种特征的食物，如高脂肪，高蛋白质,高碳水； value代表阈值
     List<Food> getSpecialFood(String special,Integer value);

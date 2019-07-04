@@ -30,10 +30,15 @@ public class FoodDAOTest extends BaseTest {
 
     @Test
     public void getByType(){
-        String type = "%四川菜%";
-        List<Food> foods = foodDAO.getByType(type);
+        String type = "四川菜";
+//        List<Food> foods = foodDAO.getByType(type);
 
-        assertEquals(3,foods.toArray().length);
+        //分页
+        List<Food> foods1 = foodDAO.getByTypeLimit(50,10,type);
+
+        assertEquals(5,foods1.toArray().length);
+
+//        assertEquals(3,foods.toArray().length);
     }
 
     @Test

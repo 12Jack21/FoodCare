@@ -48,7 +48,7 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    //更新头像
+    //TODO 更新头像
     public boolean updatePic(int id, String picture) {
 
 
@@ -56,7 +56,7 @@ public class AccountServiceImp implements AccountService {
 
         try {
             //得到 Resources 的目录下的文件，不能得到目录
-            File file = ResourceUtils.getFile("classpath:image_user" + "/applicationContext.xml");
+            File file = ResourceUtils.getFile("classpath:image_user" + "/jdbc.properties");
 
             String c = ResourceUtils.getFile("classpath:image_user").getPath();
             System.out.println(c);
