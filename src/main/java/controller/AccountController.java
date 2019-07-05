@@ -5,16 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import po.Account;
-import po.DietDetail;
-import po.Menu;
-import po.MenuItem;
+import po.*;
 import service.AccountService;
 import service.DietService;
 import service.MenuService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import static MyUtil.MyConvertor.*;
@@ -108,6 +106,16 @@ public class AccountController {
     //应该用不到此方法
     public Object addDiet(@RequestParam("account_id") int account_id, @RequestParam("group") int group) {
         return dietService.addDiet(group, account_id);
+    }
+
+    @RequestMapping("/diet/list")
+    public List<Diet> getDietToday(@RequestParam int account_id){
+        return dietService.getDietByAccToday(account_id);
+    }
+
+    @RequestMapping("/diet/find")
+    public List<Diet> getDietByDate(@RequestParam int account_id,@RequestBody Date date){
+        return dietService.getDietByAccDate(account_id, date);
     }
 
     @Transactional

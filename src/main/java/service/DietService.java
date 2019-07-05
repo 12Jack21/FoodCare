@@ -3,6 +3,7 @@ package service;
 import po.Diet;
 import po.DietDetail;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DietService {
@@ -18,10 +19,12 @@ public interface DietService {
     boolean removeDiet(int id);
 
     //得到某用户当天的所有 diet
-    List<Diet> getDietByAccDate(int account_id);
+    List<Diet> getDietByAccToday(int account_id);
 
     //得到某用户当天的某个 diet (0-早餐，1-午餐，2-晚餐)
     Diet getDietByAccDateGroup(int account_id,int group);
+
+    List<Diet> getDietByAccDate(int account_id, Date date);
 
     //得到某个 Diet中的所有明细
     List<DietDetail> getDetailsByDiet(int diet_id);

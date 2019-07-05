@@ -41,7 +41,7 @@ public class DietServiceImp implements DietService {
     }
 
     @Override
-    public List<Diet> getDietByAccDate(int account_id) {
+    public List<Diet> getDietByAccToday(int account_id) {
         java.sql.Date date = new java.sql.Date(new Date().getTime());
         return dietDAO.getByAccDate(account_id,date);
     }
@@ -50,6 +50,13 @@ public class DietServiceImp implements DietService {
     public Diet getDietByAccDateGroup(int account_id, int group) {
         java.sql.Date date = new java.sql.Date(new Date().getTime());
         return dietDAO.getByAccGroup(account_id, group,date);
+    }
+
+    @Override
+    public List<Diet> getDietByAccDate(int account_id, Date date) {
+        java.sql.Date date1 = new java.sql.Date(date.getTime());
+
+        return dietDAO.getByAccDate(account_id, date);
     }
 
     @Override
