@@ -48,6 +48,7 @@ public class FoodServiceImp implements FoodService {
         //到达最后一页了
         if (foods.toArray().length < page.getPageSize())
             page.setEnd(true);
+
         page.setStart(page.getStart() + page.getPageSize());
         foodPage.setFoods(foods);
         foodPage.setPage(page);
@@ -84,7 +85,18 @@ public class FoodServiceImp implements FoodService {
 
     @Override
     public FoodPage getFoodByNameLimit(Page page, String name) {
-        return null;
+        FoodPage foodPage = new FoodPage();
+        List<Food> foods = foodDAO.getByNameLimit(page.getStart(),page.getPageSize(),name);
+
+        //到达最后一页了
+        if (foods.toArray().length < page.getPageSize())
+            page.setEnd(true);
+
+        page.setStart(page.getStart() + page.getPageSize());
+        foodPage.setFoods(foods);
+        foodPage.setPage(page);
+
+        return foodPage;
     }
 
     @Override
@@ -111,7 +123,18 @@ public class FoodServiceImp implements FoodService {
 
     @Override
     public FoodPage getFoodByTypeLimit(Page page, String type) {
-        return null;
+        FoodPage foodPage = new FoodPage();
+        List<Food> foods = foodDAO.getByTypeLimit(page.getStart(),page.getPageSize(),type);
+
+        //到达最后一页了
+        if (foods.toArray().length < page.getPageSize())
+            page.setEnd(true);
+
+        page.setStart(page.getStart() + page.getPageSize());
+        foodPage.setFoods(foods);
+        foodPage.setPage(page);
+
+        return foodPage;
     }
 
     @Override
@@ -121,7 +144,18 @@ public class FoodServiceImp implements FoodService {
 
     @Override
     public FoodPage getFoodByCategoryLimit(Page page, String category) {
-        return null;
+        FoodPage foodPage = new FoodPage();
+        List<Food> foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),category);
+
+        //到达最后一页了
+        if (foods.toArray().length < page.getPageSize())
+            page.setEnd(true);
+
+        page.setStart(page.getStart() + page.getPageSize());
+        foodPage.setFoods(foods);
+        foodPage.setPage(page);
+
+        return foodPage;
     }
 
     @Override
@@ -141,16 +175,30 @@ public class FoodServiceImp implements FoodService {
         return false;
     }
 
-    @Override
-    public List<FoodReg> recognizePicture(Byte[] picture) {
-
-
-        return null;
-    }
 
     @Override
+    //识别图片的主函数
     public List<FoodRank> recognize(byte[] picture){
         return ModelPredict.recognize(picture);
+    }
+
+
+    @Override
+    //识别图片 主函数
+    public List<FoodReg> recognizePicture(byte[] picture){
+        List<FoodRank> ranks = ModelPredict.recognize(picture);
+
+        List<FoodReg> regs = new ArrayList<>();
+        FoodReg foodReg = null;
+        Food food = null;
+        for (FoodRank f : ranks){
+            food = foodDAO.getByName(f.getFoodname()).get(0);
+            foodReg = new FoodReg(food,f.getProbability());
+
+            regs.add(foodReg);
+        }
+
+        return regs;
     }
 
     @Override

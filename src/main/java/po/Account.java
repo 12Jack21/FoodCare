@@ -9,6 +9,7 @@ public class Account implements Serializable {
     //定的目标 0-保持健康，1-减肥，2-增肌
     private int plan;
     private int age;
+    private int sex;
     private String user;
     private String password;
     private Double height;
@@ -48,6 +49,14 @@ public class Account implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 
     public String getUser() {

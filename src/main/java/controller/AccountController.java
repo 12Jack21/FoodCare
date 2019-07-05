@@ -3,10 +3,7 @@ package controller;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import po.Account;
 import po.DietDetail;
@@ -102,7 +99,7 @@ public class AccountController {
     }
 
     @PostMapping("/updateInfo")
-    public Object changeInfo(@RequestParam Account account) {
+    public Object changeInfo(@RequestBody Account account) {
         return accountService.updateInfo(account);
     }
 
@@ -154,7 +151,7 @@ public class AccountController {
     }
 
     @RequestMapping("/menu/add")
-    public Object addMenu(@RequestParam Menu menu){
+    public Object addMenu(@RequestBody Menu menu){
         return menuService.addMenu(menu);
     }
 
@@ -169,7 +166,7 @@ public class AccountController {
     }
 
     @RequestMapping("/menuItem/add")
-    public Object addMenuItem(@RequestParam MenuItem menuItem){
+    public Object addMenuItem(@RequestBody MenuItem menuItem){
         return menuService.addItem(menuItem);
     }
 

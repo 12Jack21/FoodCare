@@ -6,9 +6,9 @@ public class FoodReg {
 
     private Food food;
 
-    private Double probability;
+    private Float probability;
 
-    public FoodReg(Food food, Double probability) {
+    public FoodReg(Food food, Float probability) {
         this.food = food;
         this.probability = probability;
     }

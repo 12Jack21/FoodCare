@@ -56,11 +56,11 @@ public interface FoodService {
     //替换某一食品
     boolean updateByName(String foodName);
 
-    //根据一张图片识别食物
-    List<FoodReg> recognizePicture(Byte[] picture);
-
     //根据一张图片识别食物(只返回名字)
     List<FoodRank> recognize(byte[] picture);
+
+    //识别图片主函数
+    List<FoodReg> recognizePicture(byte[] picture);
 
     //提供饮食建议（根据用户个人信息和根据图片识别出的食品）
     String advice(Account account, String foodName);

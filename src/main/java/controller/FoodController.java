@@ -1,6 +1,7 @@
 package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import po.Food;
@@ -26,7 +27,8 @@ public class FoodController {
     }
 
     @RequestMapping("/list/limit")
-    public Object getAllFoodLimit(@RequestParam Page page){
+    public Object getAllFoodLimit(@RequestBody Page page, ModelMap map){
+
         return foodService.getAllFoodLimit(page);
     }
 
@@ -69,13 +71,6 @@ public class FoodController {
         return foodService.getMealByCategory(category);
     }
 
-    @CrossOrigin //跨域访问的注解
-    @PostMapping("/reg")
-    //TODO 完善图片识别
-    public Object recognizePicture(@RequestParam("img") Byte[] picture){
-        System.out.println("Connecting...");
-        return foodService.recognizePicture(picture);
-    }
 
     @CrossOrigin //跨域访问的注解
     @PostMapping("/reg1")
@@ -98,6 +93,18 @@ public class FoodController {
         return foodService.recognize(bs);
     }
 
+    @CrossOrigin
+    @RequestMapping("/reg")
+    //本地测试时使用
+    public Object recognizePicture(@RequestParam("img") MultipartFile file) throws IOException {
+
+        String filename = file.getOriginalFilename();
+        System.out.println(filename);
+
+        byte[] bs = file.getBytes();
+
+        return foodService.recognizePicture(bs);
+    }
 
     /**
      * 以下为测试安卓的网络请求框架用的

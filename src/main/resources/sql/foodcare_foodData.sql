@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 04/07/2019 14:30:00
+ Date: 05/07/2019 20:09:21
 */
 
 SET NAMES utf8mb4;
@@ -24,13 +24,14 @@ DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account`  (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '呢称',
+  `sex` int(11) NULL DEFAULT NULL COMMENT '0-女，1-男',
   `age` int(11) NULL DEFAULT NULL,
   `user` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `height` double(6, 2) NULL DEFAULT NULL COMMENT '厘米为单位',
   `weight` double(6, 2) NULL DEFAULT NULL COMMENT '千克为单位',
   `fatRate` double(3, 2) NULL DEFAULT NULL COMMENT '体脂率',
-  `picture` blob NULL COMMENT '用户头像',
+  `picture` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '用户头像路径',
   `plan` int(5) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '0-保持健康，1-减肥，2-增肌',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `user`(`user`) USING BTREE
@@ -39,7 +40,7 @@ CREATE TABLE `account`  (
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES (1, 'Care', 18, 'ui', '123', 180.00, 100.00, 0.15, NULL, NULL);
+INSERT INTO `account` VALUES (5, 'ui', NULL, 10, 'newAccount', '123', NULL, 200.00, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for diet
@@ -53,14 +54,7 @@ CREATE TABLE `diet`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `account`(`account_id`) USING BTREE,
   CONSTRAINT `diet_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of diet
--- ----------------------------
-INSERT INTO `diet` VALUES (1, 0, '2019-06-30', 1);
-INSERT INTO `diet` VALUES (2, 1, '2019-06-30', 1);
-INSERT INTO `diet` VALUES (3, 2, '2019-07-02', 1);
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for dietdetail
@@ -95,7 +89,7 @@ CREATE TABLE `dishes`  (
   `excipient` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '辅料',
   `practice` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '做法（步骤）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for food
@@ -143,7 +137,7 @@ CREATE TABLE `food`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE,
   INDEX `prac_id`(`practice`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2732 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2717 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of food
@@ -2885,7 +2879,7 @@ CREATE TABLE `label`  (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '标签名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of label
@@ -2934,10 +2928,5 @@ CREATE TABLE `userlabel`  (
   CONSTRAINT `userlabel_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `userlabel_ibfk_2` FOREIGN KEY (`label_id`) REFERENCES `label` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of userlabel
--- ----------------------------
-INSERT INTO `userlabel` VALUES (1, 3, 20.00);
 
 SET FOREIGN_KEY_CHECKS = 1;
