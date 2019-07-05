@@ -65,4 +65,13 @@
         <session-timeout>1440</session-timeout>
     </session-config>
 
+    <!-- webRoot根路径key值配置 -->
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>myWeb.root</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
+    </listener>
+
 </web-app>

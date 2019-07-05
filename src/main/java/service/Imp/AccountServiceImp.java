@@ -3,12 +3,17 @@ package service.Imp;
 import dao.AccountDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 import po.Account;
+import po.Food;
 import service.AccountService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
 
 import static org.apache.logging.log4j.core.util.Loader.getClassLoader;
 
@@ -38,6 +43,15 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
+    @Transactional
+    // 更新头像路径
+    public boolean updatePic(int id, String suffix) {
+
+        String picture = "/img_user.action/" + id + "." + suffix;
+        return accountDAO.updatePicture(id, picture);
+    }
+
+    @Override
     public boolean cancel(int id) {
         return accountDAO.delete(id);
     }
@@ -48,32 +62,13 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    //TODO 更新头像
-    public boolean updatePic(int id, String picture) {
-
-
-        String classpath = AccountServiceImp.class.getResource("/").getPath();
-
-        try {
-            //得到 Resources 的目录下的文件，不能得到目录
-            File file = ResourceUtils.getFile("classpath:image_user" + "/jdbc.properties");
-
-            String c = ResourceUtils.getFile("classpath:image_user").getPath();
-            System.out.println(c);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String img_path = AccountServiceImp.class.getResource("/").getPath().replace("classes", "img");
-//        System.out.println("Img_path: " + img_path);
-
-
-        return accountDAO.updatePicture(id, null);
+    public boolean updateInfo(Account account) {
+        return accountDAO.updateInfo(account);
     }
 
     @Override
-    public boolean updateInfo(Account account) {
-        return accountDAO.updateInfo(account);
+    public List<Food> recommend(int account_id, int group) {
+        return null;
     }
 
 }

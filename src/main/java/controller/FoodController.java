@@ -8,6 +8,7 @@ import service.DietService;
 import service.FoodService;
 import vo.FoodRank;
 import vo.FoodReg;
+import vo.Page;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +23,11 @@ public class FoodController {
     @RequestMapping("/list")
     public Object getAllFood(){
         return foodService.getAllFood();
+    }
+
+    @RequestMapping("/list/limit")
+    public Object getAllFoodLimit(@RequestParam Page page){
+        return foodService.getAllFoodLimit(page);
     }
 
     @RequestMapping("/dishes")

@@ -54,6 +54,9 @@
     <mvc:resources mapping="/img_high.action/**" location="/WEB-INF/img/image_high/"/>
     <mvc:resources mapping="/img_light.action/**"  location="/WEB-INF/img/image_light/"/>
 
+    <mvc:resources mapping="/img_user.action/**"  location="/WEB-INF/image_user/"/>
+
+
 
     <!--    <mvc:default-servlet-handler/>-->
 

@@ -37,8 +37,16 @@ public class AccountDAOTest extends BaseTest {
     }
 
     @Test
+    public void updatePic(){
+        int id = 1;
+
+    }
+
+    @Test
     public void delete(){
         assertTrue(accountDAO.delete(1));
     }
+
+
 
 }

@@ -48,9 +48,10 @@ public class FoodServiceImp implements FoodService {
         //到达最后一页了
         if (foods.toArray().length < page.getPageSize())
             page.setEnd(true);
+        page.setStart(page.getStart() + page.getPageSize());
         foodPage.setFoods(foods);
         foodPage.setPage(page);
-        
+
         return foodPage;
     }
 

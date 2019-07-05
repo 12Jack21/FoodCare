@@ -12,7 +12,7 @@ public class AccServiceTest extends BaseTest {
     @Test
     public void updatePic(){
 
-        accountService.updatePic(1,"/");
+//        accountService.updatePic(1,"1");
 
 
     }

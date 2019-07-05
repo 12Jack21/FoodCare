@@ -1,11 +1,13 @@
 package controller;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import po.Account;
 import po.DietDetail;
 import po.Menu;
@@ -14,6 +16,8 @@ import service.AccountService;
 import service.DietService;
 import service.MenuService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static MyUtil.MyConvertor.*;
@@ -46,11 +50,7 @@ public class AccountController {
     //TODO 加上邮箱
     @PostMapping("/register")
     public Object register(@RequestParam("user") String user, @RequestParam("password") String password) {
-        if (accountService.getAccByUser(user) != null)
-            //账户已存在
-            return 0;
-        else
-            return accountService.register(user, password);
+        return accountService.register(user, password);
     }
 
     @PostMapping("/info")
@@ -71,8 +71,34 @@ public class AccountController {
 
     @RequestMapping("/picture")
     //TODO 更改Byte类型
-    public Object changePic(@RequestParam("account_id") int account_id, @RequestParam("picture") Byte[] picture) {
-        return accountService.updatePic(account_id, null);
+    public Object changePic(@RequestParam("account_id") int account_id,
+                            @RequestParam("picture")MultipartFile picture) throws IOException {
+
+        //获取Web根目录
+        String path = System.getProperty("myWeb.root");
+        String suffix = null;
+
+        //文件非空
+        if (!picture.isEmpty()) {
+            // 获取到源文件名
+            String filename = picture.getOriginalFilename();
+            // 获取文件的后缀名
+            suffix = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+
+//            // 如果后缀为mp3的，一上传文件原名保存，否则以时间戳文文件名进行保存
+//            if (!suffix.equals("jpg")) {
+//                //FileUtils.copyInputStreamToFile(multipartFile.getInputStream(),new File(path + "//upload//", System.currentTimeMillis() + "." + suffix));
+//                picture.transferTo(new File(path + "//WEB-INF//image_user//", System.currentTimeMillis() + "." + suffix));
+//            } else {
+//                FileUtils.copyInputStreamToFile(picture.getInputStream(), new File(path + "//WEB-INF//image_user//", filename));
+//            }
+
+            FileUtils.copyInputStreamToFile(picture.getInputStream(), new File(path + "//WEB-INF//image_user//", account_id + "."+suffix));
+
+
+        }
+
+        return accountService.updatePic(account_id,suffix);
     }
 
     @PostMapping("/updateInfo")
