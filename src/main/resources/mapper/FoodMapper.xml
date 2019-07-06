@@ -28,6 +28,15 @@
     <select id="getAllFoodLimit" resultType="po.Food">
         SELECT * FROM food ORDER BY id LIMIT #{param1},#{param2}
     </select>
+
+    <select id="getFrequentFood" resultType="po.Food">
+        SELECT * FROM food WHERE frequent = 1
+    </select>
+
+    <select id="getFrequentFoodLimit" resultType="po.Food">
+        SELECT * FROM food WHERE frequent = 1 ORDER BY id LIMIT #{param1},#{param2}
+    </select>
+
     <select id="getByGroup" resultType="po.Food">
         SELECT * FROM food WHERE `group`=#{group}
     </select>

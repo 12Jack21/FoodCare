@@ -9,12 +9,6 @@ import java.sql.Timestamp;
 
 public class MyConvertor {
 
-    //转换成识别图片后显示食物以及概率
-    public static FoodReg toFoodReg(Food food,Float probability){
-
-        return new FoodReg(food, probability);
-    }
-
     //转换成带 登陆判断 的用户对象
     public static AccountLog toAccountLog(Account account,boolean canLogin){
         return new AccountLog(account,canLogin);

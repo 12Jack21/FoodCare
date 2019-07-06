@@ -18,6 +18,11 @@ public interface FoodService {
 
     FoodPage getAllFoodLimit(Page page);
 
+    List<Food> getFrequentFood();
+
+    //分页查询得到常见的食物
+    FoodPage getFrequentFoodLimit(Page page);
+
     //按照常用的级别来得到排序后的食物列表
     List<Food> getCommonFood();
 

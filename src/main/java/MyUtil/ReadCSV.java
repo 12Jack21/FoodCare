@@ -10,9 +10,9 @@ import java.sql.*;
 public class ReadCSV {
 
     public static void main(String[] args) {
-        readDishes("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv（最后一列是拼音）\\csv\\dishes");
+        readDishes("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv最终版\\csv最终版（mid）\\dishes");
 
-        readMeal("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv（最后一列是拼音）\\csv\\others");
+        readMeal("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv最终版\\csv最终版（mid）\\others");
 
     }
 
@@ -29,6 +29,18 @@ public class ReadCSV {
         return sb.toString();
     }
 
+    //用于过滤 做法
+    public static String filterPractice(String str) {
+        String[] s = str.split("\", \"");//包括逗号的
+
+        StringBuilder sb = new StringBuilder();
+        for (int n = 0; n < s.length; n++) {
+            if (n != 0 && n != s.length - 1)
+                sb.append(s[n]);
+        }
+
+        return sb.toString();
+    }
     //用于过滤蛋白质、纤维素等的横杠 '-'
     public static Double filterDouble(String str) {
         if (str.equals("一") || str.equals(""))
@@ -118,7 +130,11 @@ public class ReadCSV {
                     //烹饪工艺
                     ps.setString(14, columns[2]);
 
-                    ps.executeUpdate();
+                    try {
+                        ps.executeUpdate();
+                    }catch (SQLIntegrityConstraintViolationException e){
+                        System.out.println("主键冲突：" + columns[0] + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                    }
 
                 }
 

@@ -57,6 +57,27 @@ public class FoodServiceImp implements FoodService {
     }
 
     @Override
+    public List<Food> getFrequentFood() {
+        return foodDAO.getFrequentFood();
+    }
+
+    @Override
+    public FoodPage getFrequentFoodLimit(Page page) {
+        FoodPage foodPage = new FoodPage();
+        List<Food> foods = foodDAO.getFrequentFoodLimit(page.getStart(),page.getPageSize());
+
+        //到达最后一页了
+        if (foods.toArray().length < page.getPageSize())
+            page.setEnd(true);
+
+        page.setStart(page.getStart() + page.getPageSize());
+        foodPage.setFoods(foods);
+        foodPage.setPage(page);
+
+        return foodPage;
+    }
+
+    @Override
     public List<Food> getCommonFood() {
         return null;
     }
@@ -190,14 +211,24 @@ public class FoodServiceImp implements FoodService {
 
         List<FoodReg> regs = new ArrayList<>();
         FoodReg foodReg = null;
-        Food food = null;
+        List<Food> foods = null;
+
+        int heat = 0;
+
         for (FoodRank f : ranks){
-            food = foodDAO.getByName(f.getFoodname()).get(0);
-            foodReg = new FoodReg(food,f.getProbability());
+            foods = foodDAO.getByName(f.getFoodname());
+
+            //计算平均热量
+            for (Food food : foods){
+                heat += food.getHeat();
+            }
+
+            foodReg = new FoodReg(foods,f.getProbability(),f.getFoodname(),heat);
 
             regs.add(foodReg);
-        }
 
+            heat = 0;
+        }
         return regs;
     }
 

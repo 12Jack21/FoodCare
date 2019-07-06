@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import po.Food;
 import service.DietService;
 import service.FoodService;
+import vo.FoodPage;
 import vo.FoodRank;
 import vo.FoodReg;
 import vo.Page;
@@ -14,12 +15,18 @@ import vo.Page;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/food")
 public class FoodController {
     @Autowired
     private FoodService foodService;
+
+    @RequestMapping("/{food_id}")
+    public Food getFoodById(@PathVariable int food_id){
+        return foodService.getFoodById(food_id);
+    }
 
     @RequestMapping("/list")
     public Object getAllFood(){
@@ -30,6 +37,16 @@ public class FoodController {
     public Object getAllFoodLimit(@RequestBody Page page, ModelMap map){
 
         return foodService.getAllFoodLimit(page);
+    }
+
+    @RequestMapping("/list/frequent")
+    public List<Food> getFrequentFood(){
+        return foodService.getFrequentFood();
+    }
+
+    @RequestMapping("/list/frequent/limit")
+    public FoodPage getFrequentFoodLimit(@RequestBody Page page){
+        return foodService.getFrequentFoodLimit(page);
     }
 
     @RequestMapping("/dishes")
@@ -65,12 +82,23 @@ public class FoodController {
         return foodService.getDishesByType(type);
     }
 
+    //分页查询菜系的菜品
+    @RequestMapping("/dishes/type/limit")
+    public FoodPage getDishesByTypeLimit(@RequestParam String type, @RequestBody Page page){
+        return foodService.getFoodByTypeLimit(page, type);
+    }
+
     //得到某个类别的食品（肉类）
     @RequestMapping("/meal/category")
     public Object getMealByCategory(@RequestParam String category){
         return foodService.getMealByCategory(category);
     }
 
+    //分页查询菜系的菜品
+    @RequestMapping("/meal/category/limit")
+    public FoodPage getMealByCategoryLimit(@RequestParam String category, @RequestBody Page page){
+        return foodService.getFoodByCategoryLimit(page, category);
+    }
 
     @CrossOrigin //跨域访问的注解
     @PostMapping("/reg1")

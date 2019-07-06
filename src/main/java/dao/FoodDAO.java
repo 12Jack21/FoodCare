@@ -20,6 +20,11 @@ public interface FoodDAO { //TODO 大量查询要写
 
     List<Food> getAllFoodLimit(int start,int rows);
 
+    List<Food> getFrequentFood();
+
+    //分页查询得到常见的食物
+    List<Food> getFrequentFoodLimit(int start,int rows);
+
     List<Food> getByGroup(int group); // 0-菜品
 
     List<Food> getByGroupLimit(int start,int rows,int group);//分页查找
