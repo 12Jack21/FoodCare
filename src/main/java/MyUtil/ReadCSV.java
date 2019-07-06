@@ -23,7 +23,7 @@ public class ReadCSV {
         StringBuilder sb = new StringBuilder();
         for (int n = 0; n < s.length; n++) {
             if (n != 0 && n != s.length - 1)
-                sb.append(s[n]);
+                sb.append(s[n].trim());
         }
 
         return sb.toString();
@@ -36,11 +36,25 @@ public class ReadCSV {
         StringBuilder sb = new StringBuilder();
         for (int n = 0; n < s.length; n++) {
             if (n != 0 && n != s.length - 1)
-                sb.append(s[n]);
+                sb.append(s[n].trim());
         }
 
         return sb.toString();
     }
+    //用于过滤 烹饪工艺
+    public static String filterCook(String str) {
+        String[] s = str.split("\"");//包括双引号的
+
+        StringBuilder sb = new StringBuilder();
+        for (int n = 0; n < s.length; n++) {
+            if (s[n].equals("\"\"") || s[n].equals("\""))
+                continue;
+            sb.append(s[n].trim());
+        }
+
+        return sb.toString();
+    }
+
     //用于过滤蛋白质、纤维素等的横杠 '-'
     public static Double filterDouble(String str) {
         if (str.equals("一") || str.equals(""))
@@ -120,7 +134,7 @@ public class ReadCSV {
                     ps.setString(10, filterString(columns[11]));
                     ps.setString(11, filterString(columns[12]));
                     ps.setString(12, filterString(columns[13]));
-                    ps.setString(13, filterString(columns[14])); //practice
+                    ps.setString(13, filterPractice(columns[14])); //practice
 
                     //图片路径
                     ps.setString(15, "/img_mid.action/" + columns[16] + ".jpg");
@@ -128,7 +142,7 @@ public class ReadCSV {
                     ps.setString(17, "/img_light.action/" + columns[16] + ".png");
 
                     //烹饪工艺
-                    ps.setString(14, columns[2]);
+                    ps.setString(14, filterCook(columns[2]));
 
                     try {
                         ps.executeUpdate();

@@ -99,9 +99,7 @@ public class FoodServiceImp implements FoodService {
     @Override
     public List<Food> getFoodByName(String name) {
         System.out.println("getByName....");
-        System.out.println("%" + name + "%")
-        ;
-        return foodDAO.getByName("%" + name + "%");
+        return foodDAO.getByName(name);
     }
 
     @Override

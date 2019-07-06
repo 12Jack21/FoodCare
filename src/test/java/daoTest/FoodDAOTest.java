@@ -18,6 +18,14 @@ public class FoodDAOTest extends BaseTest {
 
     private static final double DELTA = 1e-15;
 
+    @Test
+    public void getLikeName(){
+        String s = "冰淇淋";
+        List<Food> foods = foodDAO.getByName(s);
+
+        assertEquals(foods.toArray().length,5);
+
+    }
 
     @Test
     public void getByName(){
