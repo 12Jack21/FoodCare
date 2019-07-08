@@ -15,6 +15,8 @@ public interface DietService {
 
     boolean removeDietDetail(int diet_id,int food_id);
 
+    boolean updateDietDetail(int diet_id,int food_id,int quantity);
+
     //在移除最后一个 dietDetail时，移除该 diet
     boolean removeDiet(int id);
 

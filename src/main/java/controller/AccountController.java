@@ -80,17 +80,7 @@ public class AccountController {
             // 获取文件的后缀名
             suffix = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
 
-//            // 如果后缀为mp3的，一上传文件原名保存，否则以时间戳文文件名进行保存
-//            if (!suffix.equals("jpg")) {
-//                //FileUtils.copyInputStreamToFile(multipartFile.getInputStream(),new File(path + "//upload//", System.currentTimeMillis() + "." + suffix));
-//                picture.transferTo(new File(path + "//WEB-INF//image_user//", System.currentTimeMillis() + "." + suffix));
-//            } else {
-//                FileUtils.copyInputStreamToFile(picture.getInputStream(), new File(path + "//WEB-INF//image_user//", filename));
-//            }
-
             FileUtils.copyInputStreamToFile(picture.getInputStream(), new File(path + "//WEB-INF//image_user//", account_id + "."+suffix));
-
-
         }
 
         return accountService.updatePic(account_id,suffix);
@@ -116,6 +106,13 @@ public class AccountController {
     @RequestMapping("/diet/find")
     public List<Diet> getDietByDate(@RequestParam int account_id,@RequestBody Date date){
         return dietService.getDietByAccDate(account_id, date);
+    }
+
+
+
+    @RequestMapping("/dietDetail/list")
+    public List<DietDetail> getDietDetailByDiet(@RequestParam int diet_id){
+        return dietService.getDetailsByDiet(diet_id);
     }
 
     @Transactional
@@ -146,6 +143,11 @@ public class AccountController {
         }else
             op = dietService.removeDietDetail(diet_id, food_id);
         return op;
+    }
+
+    @RequestMapping("/dietDetail/update")
+    public Boolean updateDietDetail(@RequestParam("diet_id")int diet_id,@RequestParam("food_id")int food_id,@RequestParam("quantity")int quantity){
+        return dietService.updateDietDetail(diet_id, food_id, quantity);
     }
 
 

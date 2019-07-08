@@ -214,14 +214,17 @@ public class FoodServiceImp implements FoodService {
         int heat = 0;
 
         for (FoodRank f : ranks){
-            foods = foodDAO.getByName(f.getFoodname());
+            //过滤标签名（带index和冒号的）
+            String[] s = f.getFoodname().split(":");
+            foods = foodDAO.getByName(s[s.length - 1]);
+
 
             //计算平均热量
             for (Food food : foods){
                 heat += food.getHeat();
             }
-
-            foodReg = new FoodReg(foods,f.getProbability(),f.getFoodname(),heat);
+            //平均热量
+            foodReg = new FoodReg(foods,f.getProbability(),s[s.length - 1],foods.toArray().length == 0 ? 0 : (heat/foods.toArray().length));
 
             regs.add(foodReg);
 

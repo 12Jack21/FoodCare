@@ -20,10 +20,10 @@ public class FoodDAOTest extends BaseTest {
 
     @Test
     public void getLikeName(){
-        String s = "冰淇淋";
+        String s = "意大利面";
         List<Food> foods = foodDAO.getByName(s);
 
-        assertEquals(foods.toArray().length,5);
+        assertEquals(foods.toArray().length,9);
 
     }
 

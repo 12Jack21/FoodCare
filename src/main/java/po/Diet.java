@@ -3,6 +3,7 @@ package po;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class Diet {
 
@@ -14,6 +15,8 @@ public class Diet {
     private Date date;
 
     private Account account;
+
+    private List<DietDetail> detailList;
 
     public Diet() {
     }
@@ -58,5 +61,13 @@ public class Diet {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public List<DietDetail> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(List<DietDetail> detailList) {
+        this.detailList = detailList;
     }
 }

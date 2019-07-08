@@ -55,7 +55,10 @@
                 weight = #{weight},
             </if>
             <if test="fatRate!=-1.0">
-                weight = #{weight},
+                fatRate = #{fatRate},
+            </if>
+            <if test="plan!=-1">
+                plan = #{plan},
             </if>
         </set>
         WHERE id = #{id}

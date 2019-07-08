@@ -21,7 +21,7 @@ import org.tensorflow.Tensor;
 import org.tensorflow.types.UInt8;
 import vo.FoodRank;
 
-public class ModelPredict {
+public class ModelPredict {//TODO 优化防止读模型时内存溢出
 
     //调用的API
     public static List<FoodRank> recognize(byte[] picture){

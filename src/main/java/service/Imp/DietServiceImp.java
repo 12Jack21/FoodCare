@@ -26,13 +26,31 @@ public class DietServiceImp implements DietService {
     }
 
     @Override
+    //添加 dietDetail时判断是否有相同食物的，如果有，则覆盖
     public boolean addDietDetail(int diet_id, int food_id, int quantity) {
+
+        List<DietDetail> dietDetails = dietDetailDAO.getByDietId(diet_id);
+
+        for (DietDetail dietDetail : dietDetails){
+            //有相同的食物
+            if (dietDetail.getFood().getId() == food_id){
+                //删除原有的
+                dietDetailDAO.delete(diet_id, food_id);
+                break;
+            }
+        }
+
         return dietDetailDAO.insert(new DietDetail(quantity,new Diet(diet_id),new Food(food_id)));
     }
 
     @Override
     public boolean removeDietDetail(int diet_id, int food_id) {
         return dietDetailDAO.delete(diet_id, food_id);
+    }
+
+    @Override
+    public boolean updateDietDetail(int diet_id, int food_id, int quantity) {
+        return dietDetailDAO.update(diet_id, food_id, quantity);
     }
 
     @Override
@@ -43,7 +61,14 @@ public class DietServiceImp implements DietService {
     @Override
     public List<Diet> getDietByAccToday(int account_id) {
         java.sql.Date date = new java.sql.Date(new Date().getTime());
-        return dietDAO.getByAccDate(account_id,date);
+
+        List<Diet> diets = dietDAO.getByAccDate(account_id,date);
+
+        for (Diet diet : diets){
+            diet.setDetailList(dietDetailDAO.getByDietId(diet.getId()));
+        }
+
+        return diets;
     }
 
     @Override

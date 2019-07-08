@@ -9,8 +9,44 @@
         <id property="food.id" column="id"/>
         <result property="quantity" column="quantity"/>
         <association property="food" javaType="po.Food">
-            <id column="id" property="id"/>
+            <id property="id" column="id"/>
             <result property="name" column="name"/>
+            <result property="group" column="group"/>
+            <result property="type" column="type"/>
+            <result property="category" column="category"/>
+            <result property="cellulose" column="cellulose"/>
+            <result property="carotene" column="carotene"/>
+            <result property="cholesterol" column="cholesterol"/>
+            <result property="fat" column="fat"/>
+            <result property="heat" column="heat"/>
+            <result property="hehuang" column="hehuang"/>
+            <result property="protein" column="protein"/>
+            <result property="tanshui" column="tanshui"/>
+            <result property="evaluate" column="evaluate"/>
+            <result property="excipient" column="excipient"/>
+            <result property="ingredient" column="ingredient"/>
+            <result property="seasoning" column="seasoning"/>
+            <result property="measure" column="measure"/>
+            <result property="vitaminA" column="vitaminA"/>
+            <result property="vitaminC" column="vitaminC"/>
+            <result property="vitaminE" column="vitaminE"/>
+            <result property="na" column="na"/>
+            <result property="mei" column="mei"/>
+            <result property="meng" column="meng"/>
+            <result property="xi" column="xi"/>
+            <result property="xin" column="xin"/>
+            <result property="tie" column="tie"/>
+            <result property="tong" column="tong"/>
+            <result property="gai" column="gai"/>
+            <result property="jia" column="jia"/>
+            <result property="yansuan" column="yansuan"/>
+            <result property="practice" column="practice"/>
+            <result property="liuan" column="liuan"/>
+            <result property="cook" column="cook"/>
+            <result property="picture_mid" column="picture_mid"/>
+            <result property="picture_high" column="picture_high"/>
+            <result property="light" column="light"/>
+            <result property="lin" column="lin"/>
         </association>
     </resultMap>
 
