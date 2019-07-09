@@ -66,6 +66,12 @@ public class FoodController {
         return foodService.getFoodByName(name);
     }
 
+    //根据食物名进行查找
+    @RequestMapping("/search/limit")
+    public Object getFoodByNameLimit(@RequestParam String name,Page page){
+        return foodService.getFoodByNameLimit(page,name);
+    }
+
     @RequestMapping("/label/list")
     public Object getAllLabel(){
         return foodService.getAllLabel();
@@ -84,7 +90,7 @@ public class FoodController {
 
     //分页查询菜系的菜品
     @RequestMapping("/dishes/type/limit")
-    public FoodPage getDishesByTypeLimit(@RequestParam String type, @RequestBody Page page){
+    public FoodPage getDishesByTypeLimit(@RequestParam String type,Page page){
         return foodService.getFoodByTypeLimit(page, type);
     }
 
@@ -96,7 +102,7 @@ public class FoodController {
 
     //分页查询菜系的菜品
     @RequestMapping("/meal/category/limit")
-    public FoodPage getMealByCategoryLimit(@RequestParam String category, @RequestBody Page page){
+    public FoodPage getMealByCategoryLimit(@RequestParam String category,Page page){
         return foodService.getFoodByCategoryLimit(page, category);
     }
 

@@ -28,6 +28,8 @@ public interface DietService {
 
     List<Diet> getDietByAccDate(int account_id, Date date);
 
+    List<Diet> getDietByAccDateString(int account_id, String date);
+
     //得到某个 Diet中的所有明细
     List<DietDetail> getDetailsByDiet(int diet_id);
 

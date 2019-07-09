@@ -2,6 +2,7 @@ package controller;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -103,12 +104,16 @@ public class AccountController {
         return dietService.getDietByAccToday(account_id);
     }
 
+//    @RequestMapping("/diet/find")
+//    public List<Diet> getDietByDate(@RequestParam int account_id,@DateTimeFormat(pattern="yyyy-MM-dd") Date date){
+//        return dietService.getDietByAccDate(account_id, date);
+//    }
+
+
     @RequestMapping("/diet/find")
-    public List<Diet> getDietByDate(@RequestParam int account_id,@RequestBody Date date){
-        return dietService.getDietByAccDate(account_id, date);
+    public List<Diet> getDietByDate(@RequestParam int account_id,@RequestParam String date){
+        return dietService.getDietByAccDateString(account_id, date);
     }
-
-
 
     @RequestMapping("/dietDetail/list")
     public List<DietDetail> getDietDetailByDiet(@RequestParam int diet_id){

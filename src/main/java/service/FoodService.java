@@ -35,6 +35,7 @@ public interface FoodService {
     //根据名称找食物（模糊查找）
     List<Food> getFoodByName(String name);
 
+    //根据名称分页找食物（模糊查找）
     FoodPage getFoodByNameLimit(Page page, String name);
 
     //得到所有菜品

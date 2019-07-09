@@ -10,6 +10,8 @@ import po.DietDetail;
 import po.Food;
 import service.DietService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -82,6 +84,26 @@ public class DietServiceImp implements DietService {
         java.sql.Date date1 = new java.sql.Date(date.getTime());
 
         return dietDAO.getByAccDate(account_id, date);
+    }
+
+    @Override
+    public List<Diet> getDietByAccDateString(int account_id, String date) {
+        try {
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+
+            java.sql.Date date2 = new java.sql.Date(date1.getTime());
+
+            List<Diet> diets = dietDAO.getByAccDate(account_id,date2);
+            for (Diet diet : diets){
+                diet.setDetailList(dietDetailDAO.getByDietId(diet.getId()));
+            }
+            return diets;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override

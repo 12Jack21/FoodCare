@@ -105,7 +105,14 @@ public class FoodServiceImp implements FoodService {
     @Override
     public FoodPage getFoodByNameLimit(Page page, String name) {
         FoodPage foodPage = new FoodPage();
-        List<Food> foods = foodDAO.getByNameLimit(page.getStart(),page.getPageSize(),name);
+        List<Food> foods = null;
+
+        //判断来过滤 引号
+        if (name.contains("\"")){
+            String[] s = name.split("\"");
+            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),s[1]);
+        }else
+            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),name);
 
         //到达最后一页了
         if (foods.toArray().length < page.getPageSize())
@@ -143,13 +150,26 @@ public class FoodServiceImp implements FoodService {
     @Override
     public FoodPage getFoodByTypeLimit(Page page, String type) {
         FoodPage foodPage = new FoodPage();
-        List<Food> foods = foodDAO.getByTypeLimit(page.getStart(),page.getPageSize(),type);
+        List<Food> foods = null;
+
+        //调试用
+        System.out.println("更新前页数的开始位置：" + page.getStart() + "------------------------------------------------------");
+
+        //判断来过滤 引号
+        if (type.contains("\"")){
+            String[] s = type.split("\"");
+            foods = foodDAO.getByTypeLimit(page.getStart(),page.getPageSize(),s[1]);
+        }else
+            foods = foodDAO.getByTypeLimit(page.getStart(),page.getPageSize(),type);
 
         //到达最后一页了
         if (foods.toArray().length < page.getPageSize())
             page.setEnd(true);
 
         page.setStart(page.getStart() + page.getPageSize());
+
+        System.out.println("更新后页数的开始位置：" + page.getStart() + "------------------------------------------------------");
+
         foodPage.setFoods(foods);
         foodPage.setPage(page);
 
@@ -164,7 +184,13 @@ public class FoodServiceImp implements FoodService {
     @Override
     public FoodPage getFoodByCategoryLimit(Page page, String category) {
         FoodPage foodPage = new FoodPage();
-        List<Food> foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),category);
+        List<Food> foods = null;
+        //判断来过滤 引号
+        if (category.contains("\"")){
+            String[] s = category.split("\"");
+            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),s[1]);
+        }else
+            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),category);
 
         //到达最后一页了
         if (foods.toArray().length < page.getPageSize())
