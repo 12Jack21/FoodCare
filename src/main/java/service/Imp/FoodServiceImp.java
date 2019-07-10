@@ -1,6 +1,7 @@
 package service.Imp;
 
 import MyUtil.ModelPredict;
+import MyUtil.StrToJson;
 import dao.FoodDAO;
 import dao.FoodLabelDAO;
 import dao.LabelDAO;
@@ -12,14 +13,12 @@ import po.Food;
 import po.FoodLabel;
 import po.Label;
 import service.FoodService;
-import vo.FoodPage;
-import vo.FoodRank;
-import vo.FoodReg;
-import vo.Page;
+import vo.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import static MyUtil.StrToJson.*;
 
 @Service
 public class FoodServiceImp implements FoodService {
@@ -33,6 +32,25 @@ public class FoodServiceImp implements FoodService {
     @Override
     public Food getFoodById(int id) {
         return foodDAO.getById(id);
+    }
+
+    @Override
+    public FoodMap getFoodMapById(int id) {
+        Food food = foodDAO.getById(id);
+
+        FoodMap foodMap = new FoodMap();
+        foodMap.setFood(food);
+
+        if(food.getIngredient() != null)
+            foodMap.setIngredients(materialToMap(food.getIngredient()));
+        if (food.getExcipient() != null)
+            foodMap.setExcipients(materialToMap(food.getExcipient()));
+        if (food.getSeasoning() != null)
+            foodMap.setSeasoning(materialToMap(food.getSeasoning()));
+        if (food.getPractice() != null)
+            foodMap.setPractice(zuofaToMap(food.getPractice()));
+
+        return foodMap;
     }
 
     @Override

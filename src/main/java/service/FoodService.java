@@ -1,18 +1,17 @@
 package service;
 
-import vo.FoodPage;
-import vo.Page;
+import vo.*;
 import po.Account;
 import po.Food;
 import po.Label;
-import vo.FoodRank;
-import vo.FoodReg;
 
 import java.util.List;
 
 public interface FoodService {
 
     Food getFoodById(int id);
+
+    FoodMap getFoodMapById(int id);
 
     List<Food> getAllFood();
 

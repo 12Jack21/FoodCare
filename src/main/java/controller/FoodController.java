@@ -28,6 +28,11 @@ public class FoodController {
         return foodService.getFoodById(food_id);
     }
 
+    @RequestMapping("/map/{food_id}")
+    public Object getFoodMapById(@PathVariable int food_id){
+        return foodService.getFoodMapById(food_id);
+    }
+
     @RequestMapping("/list")
     public Object getAllFood(){
         return foodService.getAllFood();
