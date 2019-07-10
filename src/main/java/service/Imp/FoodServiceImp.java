@@ -1,13 +1,14 @@
 package service.Imp;
 
 import MyUtil.ModelPredict;
-import MyUtil.StrToJson;
+import MyUtil.MultipleReg;
 import dao.FoodDAO;
 import dao.FoodLabelDAO;
 import dao.LabelDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import po.Account;
 import po.Food;
 import po.FoodLabel;
@@ -15,7 +16,6 @@ import po.Label;
 import service.FoodService;
 import vo.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import static MyUtil.StrToJson.*;
@@ -47,7 +47,7 @@ public class FoodServiceImp implements FoodService {
             foodMap.setExcipients(materialToMap(food.getExcipient()));
         if (food.getSeasoning() != null)
             foodMap.setSeasoning(materialToMap(food.getSeasoning()));
-        if (food.getPractice() != null)
+        if (food.getPractice() != null && !food.getPractice().equals("") && !food.getPractice().equals(" "))
             foodMap.setPractice(zuofaToMap(food.getPractice()));
 
         return foodMap;
@@ -146,7 +146,7 @@ public class FoodServiceImp implements FoodService {
     @Override
     public FoodPage getFoodByNameLimit(int start, String name) {
         FoodPage foodPage = new FoodPage();
-        List<Food> foods = null;
+        List<Food> foods;
 
         Page page = new Page();
         page.setStart(start);
@@ -154,9 +154,9 @@ public class FoodServiceImp implements FoodService {
         //判断来过滤 引号
         if (name.contains("\"")){
             String[] s = name.split("\"");
-            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),s[1]);
+            foods = foodDAO.getByNameLimit(page.getStart(),page.getPageSize(),s[1]);
         }else
-            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),name);
+            foods = foodDAO.getByNameLimit(page.getStart(),page.getPageSize(),name);
 
         //到达最后一页了
         if (foods.toArray().length < page.getPageSize())
@@ -357,6 +357,11 @@ public class FoodServiceImp implements FoodService {
             heat = 0;
         }
         return regs;
+    }
+
+    @Override
+    public List<FoodPosition> multipleReg(MultipartFile file) {
+        return MultipleReg.MultiReg(file);
     }
 
     @Override

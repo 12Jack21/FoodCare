@@ -152,7 +152,7 @@ public class FoodController {
 
     @CrossOrigin
     @RequestMapping("/reg")
-    //本地测试时使用
+    //完整识别单物体的图片
     public Object recognizePicture(@RequestParam("img") MultipartFile file) throws IOException {
 
         String filename = file.getOriginalFilename();
@@ -161,6 +161,14 @@ public class FoodController {
         byte[] bs = file.getBytes();
 
         return foodService.recognizePicture(bs);
+    }
+
+    @CrossOrigin
+    @RequestMapping("/multiple/reg")
+    // 识别多物体的图片
+    public Object multipleReg(@RequestParam("img") MultipartFile file) throws IOException {
+
+        return foodService.multipleReg(file);
     }
 
     /**

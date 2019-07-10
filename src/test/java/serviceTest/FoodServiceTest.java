@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import po.Food;
 import service.FoodService;
 import service.Imp.FoodServiceImp;
+import vo.FoodMap;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -95,6 +96,15 @@ public class FoodServiceTest extends BaseTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    //返回 食物 主料、辅料等的Map
+    public void getFoodMapById(){
+
+        FoodMap foodMap = foodService.getFoodMapById(806);
+
+        System.out.println(foodMap.getExcipients());
     }
 
 }

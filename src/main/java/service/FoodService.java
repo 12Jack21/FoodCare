@@ -1,5 +1,6 @@
 package service;
 
+import org.springframework.web.multipart.MultipartFile;
 import vo.*;
 import po.Account;
 import po.Food;
@@ -72,6 +73,8 @@ public interface FoodService {
 
     //识别图片主函数
     List<FoodReg> recognizePicture(byte[] picture);
+
+    List<FoodPosition> multipleReg(MultipartFile file);
 
     //提供饮食建议（根据用户个人信息和根据图片识别出的食品）
     String advice(Account account, String foodName);

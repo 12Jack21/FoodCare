@@ -17,7 +17,7 @@
         SELECT * FROM food WHERE `name` LIKE CONCAT('%',#{name},'%')
     </select>
 
-    <select id="getByNameLimit" parameterType="string" resultType="po.Food">
+    <select id="getByNameLimit" resultType="po.Food">
         SELECT * FROM food WHERE `name` LIKE CONCAT('%',#{param3},'%') ORDER BY id LIMIT #{param1},#{param2}
     </select>
 
