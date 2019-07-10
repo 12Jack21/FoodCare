@@ -30,7 +30,7 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
             return true;
         if(requestURI.indexOf("admin/")>0){
             String  admin = (String) session.getAttribute("admin");
-            if(admin != null && admin.equals("Sports")){
+            if(admin != null && admin.equals("Sport")){
                 //登陆成功的用户
                 return true;
             }else{

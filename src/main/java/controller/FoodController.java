@@ -66,10 +66,16 @@ public class FoodController {
         return foodService.getFoodByName(name);
     }
 
+//    //根据食物名进行查找
+//    @RequestMapping("/search/limit")
+//    public Object getFoodByNameLimit(@RequestParam String name,Page page){
+//        return foodService.getFoodByNameLimit(page,name);
+//    }
+
     //根据食物名进行查找
     @RequestMapping("/search/limit")
-    public Object getFoodByNameLimit(@RequestParam String name,Page page){
-        return foodService.getFoodByNameLimit(page,name);
+    public Object getFoodByNameLimit(@RequestParam String name,@RequestParam int start){
+        return foodService.getFoodByNameLimit(start,name);
     }
 
     @RequestMapping("/label/list")
@@ -88,10 +94,16 @@ public class FoodController {
         return foodService.getDishesByType(type);
     }
 
+//    //分页查询菜系的菜品
+//    @RequestMapping("/dishes/type/limit")
+//    public FoodPage getDishesByTypeLimit(@RequestParam String type,Page page){
+//        return foodService.getFoodByTypeLimit(page, type);
+//    }
+
     //分页查询菜系的菜品
     @RequestMapping("/dishes/type/limit")
-    public FoodPage getDishesByTypeLimit(@RequestParam String type,Page page){
-        return foodService.getFoodByTypeLimit(page, type);
+    public FoodPage getDishesByTypeLimit(@RequestParam String type,@RequestParam int start){
+        return foodService.getFoodByTypeLimit(start, type);
     }
 
     //得到某个类别的食品（肉类）
@@ -100,10 +112,16 @@ public class FoodController {
         return foodService.getMealByCategory(category);
     }
 
+//    //分页查询菜系的菜品
+//    @RequestMapping("/meal/category/limit")
+//    public FoodPage getMealByCategoryLimit(@RequestParam String category,Page page){
+//        return foodService.getFoodByCategoryLimit(page, category);
+//    }
+
     //分页查询菜系的菜品
     @RequestMapping("/meal/category/limit")
-    public FoodPage getMealByCategoryLimit(@RequestParam String category,Page page){
-        return foodService.getFoodByCategoryLimit(page, category);
+    public FoodPage getMealByCategoryLimit(@RequestParam String category,@RequestParam int start){
+        return foodService.getFoodByCategoryLimit(start, category);
     }
 
     @CrossOrigin //跨域访问的注解

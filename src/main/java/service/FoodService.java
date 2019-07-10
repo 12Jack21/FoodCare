@@ -35,8 +35,10 @@ public interface FoodService {
     //根据名称找食物（模糊查找）
     List<Food> getFoodByName(String name);
 
-    //根据名称分页找食物（模糊查找）
-    FoodPage getFoodByNameLimit(Page page, String name);
+//    //根据名称分页找食物（模糊查找）
+//    FoodPage getFoodByNameLimit(Page page, String name);
+
+    FoodPage getFoodByNameLimit(int start,String name);
 
     //得到所有菜品
     List<Food> getAllDishes();
@@ -46,12 +48,16 @@ public interface FoodService {
     //得到某个菜系的菜品（广东菜）
     List<Food> getDishesByType(String type);
 
-    FoodPage getFoodByTypeLimit(Page page, String type);
+//    FoodPage getFoodByTypeLimit(Page page, String type);
+
+    FoodPage getFoodByTypeLimit(int start,String type);
 
     //得到某个类别的食品（肉类，蛋类，奶类） -LIKE
     List<Food> getMealByCategory(String category);
 
-    FoodPage getFoodByCategoryLimit(Page page, String category);
+//    FoodPage getFoodByCategoryLimit(Page page, String category);
+
+    FoodPage getFoodByCategoryLimit(int start, String category);
 
     //得到具有某种特征的食物，如高脂肪，高蛋白质,高碳水； value代表阈值
     List<Food> getSpecialFood(String special,Integer value);

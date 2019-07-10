@@ -102,10 +102,36 @@ public class FoodServiceImp implements FoodService {
         return foodDAO.getByName(name);
     }
 
+//    @Override
+//    public FoodPage getFoodByNameLimit(Page page, String name) {
+//        FoodPage foodPage = new FoodPage();
+//        List<Food> foods = null;
+//
+//        //判断来过滤 引号
+//        if (name.contains("\"")){
+//            String[] s = name.split("\"");
+//            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),s[1]);
+//        }else
+//            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),name);
+//
+//        //到达最后一页了
+//        if (foods.toArray().length < page.getPageSize())
+//            page.setEnd(true);
+//
+//        page.setStart(page.getStart() + page.getPageSize());
+//        foodPage.setFoods(foods);
+//        foodPage.setPage(page);
+//
+//        return foodPage;
+//    }
+
     @Override
-    public FoodPage getFoodByNameLimit(Page page, String name) {
+    public FoodPage getFoodByNameLimit(int start, String name) {
         FoodPage foodPage = new FoodPage();
         List<Food> foods = null;
+
+        Page page = new Page();
+        page.setStart(start);
 
         //判断来过滤 引号
         if (name.contains("\"")){
@@ -147,10 +173,41 @@ public class FoodServiceImp implements FoodService {
         return foodDAO.getByType(type);
     }
 
+//    @Override
+//    public FoodPage getFoodByTypeLimit(Page page, String type) {
+//        FoodPage foodPage = new FoodPage();
+//        List<Food> foods = null;
+//
+//        //调试用
+//        System.out.println("更新前页数的开始位置：" + page.getStart() + "------------------------------------------------------");
+//
+//        //判断来过滤 引号
+//        if (type.contains("\"")){
+//            String[] s = type.split("\"");
+//            foods = foodDAO.getByTypeLimit(page.getStart(),page.getPageSize(),s[1]);
+//        }else
+//            foods = foodDAO.getByTypeLimit(page.getStart(),page.getPageSize(),type);
+//
+//        //到达最后一页了
+//        if (foods.toArray().length < page.getPageSize())
+//            page.setEnd(true);
+//
+//        page.setStart(page.getStart() + page.getPageSize());
+//
+//        System.out.println("更新后页数的开始位置：" + page.getStart() + "------------------------------------------------------");
+//
+//        foodPage.setFoods(foods);
+//        foodPage.setPage(page);
+//
+//        return foodPage;
+//    }
+
     @Override
-    public FoodPage getFoodByTypeLimit(Page page, String type) {
+    public FoodPage getFoodByTypeLimit(int start, String type) {
         FoodPage foodPage = new FoodPage();
         List<Food> foods = null;
+        Page page = new Page();
+        page.setStart(start);
 
         //调试用
         System.out.println("更新前页数的开始位置：" + page.getStart() + "------------------------------------------------------");
@@ -181,10 +238,35 @@ public class FoodServiceImp implements FoodService {
         return foodDAO.getByCategory(category);
     }
 
+//    @Override
+//    public FoodPage getFoodByCategoryLimit(Page page, String category) {
+//        FoodPage foodPage = new FoodPage();
+//        List<Food> foods = null;
+//        //判断来过滤 引号
+//        if (category.contains("\"")){
+//            String[] s = category.split("\"");
+//            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),s[1]);
+//        }else
+//            foods = foodDAO.getByCategoryLimit(page.getStart(),page.getPageSize(),category);
+//
+//        //到达最后一页了
+//        if (foods.toArray().length < page.getPageSize())
+//            page.setEnd(true);
+//
+//        page.setStart(page.getStart() + page.getPageSize());
+//        foodPage.setFoods(foods);
+//        foodPage.setPage(page);
+//
+//        return foodPage;
+//    }
+
     @Override
-    public FoodPage getFoodByCategoryLimit(Page page, String category) {
+    public FoodPage getFoodByCategoryLimit(int start, String category) {
         FoodPage foodPage = new FoodPage();
         List<Food> foods = null;
+        Page page = new Page();
+        page.setStart(start);
+
         //判断来过滤 引号
         if (category.contains("\"")){
             String[] s = category.split("\"");

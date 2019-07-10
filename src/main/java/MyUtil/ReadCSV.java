@@ -6,6 +6,8 @@ import javax.transaction.Transaction;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReadCSV {
 
@@ -15,6 +17,9 @@ public class ReadCSV {
         readMeal("F:\\Study\\FourthTerm\\实训\\薄荷网官网2810种食物csv\\csv最终版\\csv最终版（mid）\\others");
 
     }
+
+    Map<String,String> map = new HashMap<>();
+
 
     //用于过滤 主料、辅料、做法等
     public static String filterString(String str) {

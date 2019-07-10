@@ -10,6 +10,7 @@ import po.*;
 import service.AccountService;
 import service.DietService;
 import service.MenuService;
+import service.SportService;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,8 @@ public class AccountController {
     private DietService dietService;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private SportService sportService;
 
     //确认账户是否存在(在输入用户名时确定)
     @PostMapping("/exists")
@@ -93,6 +96,10 @@ public class AccountController {
     }
 
 
+    /**
+     * 以下为 diet相关的 URL
+     * */
+
     @RequestMapping("/diet/add")
     //应该用不到此方法
     public Object addDiet(@RequestParam("account_id") int account_id, @RequestParam("group") int group) {
@@ -153,6 +160,36 @@ public class AccountController {
     @RequestMapping("/dietDetail/update")
     public Boolean updateDietDetail(@RequestParam("diet_id")int diet_id,@RequestParam("food_id")int food_id,@RequestParam("quantity")int quantity){
         return dietService.updateDietDetail(diet_id, food_id, quantity);
+    }
+
+
+    /**
+     * 以下为运动相关的 URL
+     * */
+
+    @RequestMapping("/sport/list")
+    public Object getAllSports(){
+        return sportService.getAllSports();
+    }
+
+    @RequestMapping("/play/list")
+    public Object getPlayByAccDate(@RequestParam int account_id,@RequestParam String date){
+        return sportService.getPlayByAccDate(account_id, date);
+    }
+
+    @RequestMapping("/play/add")
+    public Boolean addPlay(@RequestBody Play play){
+        return sportService.addPlay(play);
+    }
+
+    @RequestMapping("/play/delete")
+    public Boolean deletePlay(@RequestParam int account_id,@RequestParam int sport_id,@RequestParam String date){
+        return sportService.removePlay(account_id, sport_id,date);
+    }
+
+    @RequestMapping("/play/update")
+    public Boolean updatePlay(@RequestBody Play play){
+        return sportService.updatePlayObj(play);
     }
 
 
