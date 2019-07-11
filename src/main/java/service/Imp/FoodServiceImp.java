@@ -360,8 +360,16 @@ public class FoodServiceImp implements FoodService {
     }
 
     @Override
+    //把 FoodReg 同时塞入 FoodPosition中，再传给后端
     public List<FoodPosition> multipleReg(MultipartFile file) {
-        return MultipleReg.MultiReg(file);
+        List<FoodPosition> foodPositions = MultipleReg.MultiReg(file);
+
+        if (foodPositions != null){
+            for (FoodPosition f : foodPositions){
+                f.getFoodReg().setFoods(foodDAO.getByName(f.getFoodReg().getLabel()));
+            }
+        }
+        return foodPositions;
     }
 
     @Override

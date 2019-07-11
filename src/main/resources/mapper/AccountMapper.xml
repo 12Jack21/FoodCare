@@ -60,6 +60,9 @@
             <if test="plan!=-1">
                 plan = #{plan},
             </if>
+            <if test="level!=-1">
+                `level` = #{level},
+            </if>
         </set>
         WHERE id = #{id}
     </update>

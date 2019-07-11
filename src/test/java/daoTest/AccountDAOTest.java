@@ -14,7 +14,7 @@ public class AccountDAOTest extends BaseTest {
 
     @Test
     public void getByUser(){
-        String user = "ui";
+        String user = "uuui";
         Account account = accountDAO.getAccountByUser(user);
 
         assertEquals(account.getPassword(),accountDAO.getPassword(user));

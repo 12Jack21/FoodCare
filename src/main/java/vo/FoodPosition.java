@@ -5,11 +5,10 @@ import java.util.List;
 
 public class FoodPosition implements Serializable {
 
-    //食物 id
-//    private int id;
+    private FoodReg foodReg;
 
-    //标签名，如番茄炒蛋 (要用来搜索的)
-    private String label;
+    //标签名，放到 FoodReg中了，如番茄炒蛋 (要用来搜索的)
+//    private String label;
 
     //框选区域的四个点相对于 宽、高的比例，
     // 0-xMin, 1-xMax, 2-yMin, 3-yMax
@@ -21,13 +20,12 @@ public class FoodPosition implements Serializable {
     public FoodPosition() {
     }
 
-
-    public String getLabel() {
-        return label;
+    public FoodReg getFoodReg() {
+        return foodReg;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setFoodReg(FoodReg foodReg) {
+        this.foodReg = foodReg;
     }
 
     public double[] getRates() {

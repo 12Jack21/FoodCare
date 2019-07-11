@@ -45,17 +45,15 @@
 
 
 <!--    静态资源可访问的设置方式-->
-    <mvc:resources mapping="/js.action/**" location="/WEB-INF/js/"/>
-    <mvc:resources mapping="/css.action/**" location="/WEB-INF/css/"/>
-    <mvc:resources mapping="/vendor.action/**" location="/WEB-INF/vendor/"/>
 
-    <!--TODO 食物图片-->
+    <!--食物图片-->
     <mvc:resources mapping="/img_mid.action/**" location="/WEB-INF/img/image_mid/"/>
     <mvc:resources mapping="/img_high.action/**" location="/WEB-INF/img/image_high/"/>
     <mvc:resources mapping="/img_light.action/**"  location="/WEB-INF/img/image_light/"/>
 
     <mvc:resources mapping="/img_user.action/**"  location="/WEB-INF/image_user/"/>
     <mvc:resources mapping="/img_multipleReg.action/**"  location="/WEB-INF/image_multipleReg/"/>
+    <mvc:resources mapping="/img_sport.action/**"  location="/WEB-INF/image_sport/"/>
 
 
     <!--    <mvc:default-servlet-handler/>-->

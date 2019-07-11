@@ -22,7 +22,7 @@
         sport s ON
         p.sport_id = s.id
         WHERE p.account_id = #{param1}
-        AND `date` = #{param2}
+        AND `date` = #{param2,jdbcType=DATE}
     </select>
 
     <insert id="insert" parameterType="po.Play">
@@ -34,7 +34,7 @@
         DELETE FROM play
         WHERE account_id = #{param1}
         AND sport_id = #{param2}
-        AND `date` = #{param3}
+        AND `date` = #{param3,jdbcType=DATE}
     </delete>
 
     <update id="update" >

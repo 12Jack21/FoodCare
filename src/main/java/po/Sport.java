@@ -6,7 +6,11 @@ public class Sport implements Serializable {
 
     private int id;
     private String name;
+    //每小时运动消耗的热量
     private int consume;
+
+    //图片地址 URL
+    private String url;
 
     public Sport() {
     }
@@ -37,5 +41,13 @@ public class Sport implements Serializable {
 
     public void setConsume(int consume) {
         this.consume = consume;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
