@@ -2,10 +2,11 @@ package po;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Diet {
+public class Diet implements Serializable {
 
     private int id;
     //组别（早餐，午餐，晚餐）

@@ -1,5 +1,7 @@
 package po;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Play {
@@ -8,9 +10,9 @@ public class Play {
 
     private Sport sport;
 
-    private Date date;
+    private String date;
 
-    //运动时长，以秒为单位
+    //运动时长，以 分钟 为单位
     private int time;
 
     public Play() {
@@ -32,11 +34,11 @@ public class Play {
         this.sport = sport;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

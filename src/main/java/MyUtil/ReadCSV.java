@@ -6,6 +6,7 @@ import javax.transaction.Transaction;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,16 +37,20 @@ public class ReadCSV {
 
     //用于过滤 做法
     public static String filterPractice(String str) {
-        String[] s = str.split("\", \"");//包括逗号的
-
+        if (str == null || str.trim().equals(""))
+            return "";
+        if (str.length() < 5)
+            return "";
+        String[] s = str.substring(2,str.length() - 3).split("\", \"");//包括逗号的
         StringBuilder sb = new StringBuilder();
-        for (int n = 0; n < s.length; n++) {
-            if (n != 0 && n != s.length - 1)
-                sb.append(s[n].trim());
-        }
 
+        for (int n=0;n < s.length;n++)
+            sb.append(s[n]);
+
+//        System.out.println(sb.toString());
         return sb.toString();
     }
+
     //用于过滤 烹饪工艺
     public static String filterCook(String str) {
         String[] s = str.split("\"");//包括双引号的

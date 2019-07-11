@@ -28,11 +28,15 @@ public class SportServiceImp implements SportService {
     @Override
     public List<Play> getPlayByAccDate(int account_id, String date) {
         try {
-            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            String[] s = {date};
+            if (date.contains("\""))
+                s = date.split("\"");
+
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(s[s.length -1]);
 
             java.sql.Date date2 = new java.sql.Date(date1.getTime());
 
-            List<Play> plays = playDAO.getPlayByAccIdDate(account_id,date2);
+            List<Play> plays = playDAO.getPlayByAccIdDate(account_id, date2);
 
             return plays;
 
@@ -48,13 +52,17 @@ public class SportServiceImp implements SportService {
     }
 
     @Override
-    public boolean removePlay(int account_id, int sport_id,String date) {
+    public boolean removePlay(int account_id, int sport_id, String date) {
         try {
-            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            String[] s = {date};
+            if (date.contains("\""))
+                s = date.split("\"");
+
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(s[s.length -1]);
 
             java.sql.Date date2 = new java.sql.Date(date1.getTime());
 
-            return playDAO.delete(account_id,sport_id,date2);
+            return playDAO.delete(account_id, sport_id, date2);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -63,13 +71,18 @@ public class SportServiceImp implements SportService {
     }
 
     @Override
-    public boolean updatePlay(int account_id, int sport_id, int time,String date) {
+    public boolean updatePlay(int account_id, int sport_id, int time, String date) {
         try {
-            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+
+            String[] s = {date};
+            if (date.contains("\""))
+                s = date.split("\"");
+
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(s[s.length -1]);
 
             java.sql.Date date2 = new java.sql.Date(date1.getTime());
 
-            return playDAO.update(account_id,sport_id,time,date2);
+            return playDAO.update(account_id, sport_id, time, date2);
 
         } catch (ParseException e) {
             e.printStackTrace();

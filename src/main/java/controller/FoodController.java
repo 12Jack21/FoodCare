@@ -45,12 +45,12 @@ public class FoodController {
     }
 
     @RequestMapping("/list/frequent")
-    public List<Food> getFrequentFood(){
+    public Object getFrequentFood(){
         return foodService.getFrequentFood();
     }
 
     @RequestMapping("/list/frequent/limit")
-    public FoodPage getFrequentFoodLimit(@RequestBody Page page){
+    public Object getFrequentFoodLimit(@RequestBody Page page){
         return foodService.getFrequentFoodLimit(page);
     }
 
@@ -107,7 +107,7 @@ public class FoodController {
 
     //分页查询菜系的菜品
     @RequestMapping("/dishes/type/limit")
-    public FoodPage getDishesByTypeLimit(@RequestParam String type,@RequestParam int start){
+    public Object getDishesByTypeLimit(@RequestParam String type,@RequestParam int start){
         return foodService.getFoodByTypeLimit(start, type);
     }
 
@@ -125,7 +125,7 @@ public class FoodController {
 
     //分页查询菜系的菜品
     @RequestMapping("/meal/category/limit")
-    public FoodPage getMealByCategoryLimit(@RequestParam String category,@RequestParam int start){
+    public Object getMealByCategoryLimit(@RequestParam String category,@RequestParam int start){
         return foodService.getFoodByCategoryLimit(start, category);
     }
 

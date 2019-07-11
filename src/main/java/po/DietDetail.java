@@ -1,6 +1,8 @@
 package po;
 
-public class DietDetail {
+import java.io.Serializable;
+
+public class DietDetail implements Serializable {
 
     private int quantity;
 

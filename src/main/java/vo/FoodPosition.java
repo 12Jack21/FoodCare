@@ -6,7 +6,7 @@ import java.util.List;
 public class FoodPosition implements Serializable {
 
     //食物 id
-    private int id;
+//    private int id;
 
     //标签名，如番茄炒蛋 (要用来搜索的)
     private String label;
@@ -21,13 +21,6 @@ public class FoodPosition implements Serializable {
     public FoodPosition() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getLabel() {
         return label;
@@ -52,4 +45,5 @@ public class FoodPosition implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+
 }

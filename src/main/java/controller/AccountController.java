@@ -178,17 +178,17 @@ public class AccountController {
     }
 
     @RequestMapping("/play/add")
-    public Boolean addPlay(@RequestBody Play play){
+    public Object addPlay(@RequestBody Play play){
         return sportService.addPlay(play);
     }
 
     @RequestMapping("/play/delete")
-    public Boolean deletePlay(@RequestParam int account_id,@RequestParam int sport_id,@RequestParam String date){
+    public Object deletePlay(@RequestParam int account_id,@RequestParam int sport_id,@RequestParam String date){
         return sportService.removePlay(account_id, sport_id,date);
     }
 
     @RequestMapping("/play/update")
-    public Boolean updatePlay(@RequestBody Play play){
+    public Object updatePlay(@RequestBody Play play){
         return sportService.updatePlayObj(play);
     }
 

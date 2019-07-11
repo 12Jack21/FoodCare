@@ -38,7 +38,7 @@ public class SportServiceTest extends BaseTest {
         Play play = new Play();
         play.setAccount_id(5);
         play.setSport(new Sport(14));
-        play.setDate(new Date());
+        play.setDate("2019-07-10");
         play.setTime(120);
 
         boolean m1 = sportService.addPlay(play);
