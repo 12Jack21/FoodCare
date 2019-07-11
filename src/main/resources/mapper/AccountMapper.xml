@@ -48,6 +48,9 @@
             <if test="age!=-1">
                 age = #{age},
             </if>
+            <if test="sex!=-1">
+                sex = #{sex},
+            </if>
             <if test="height!=-1.0">
                 height = #{height},
             </if>
